@@ -116,7 +116,7 @@
 
 % TikZ left-aligned semi-transparent text box
 \newcommand{\alphabox}[1]{%
-  \flushleft\tikz\node[fill=white, fill opacity=0.75, text opacity=1,%
+  \tikz\node[fill=white, fill opacity=0.75, text opacity=1,%
                        align=left, inner sep=1em] {#1};}
 
 % strike-out
@@ -150,19 +150,20 @@
    \begin{frame}[#1]{#4}}
   {\end{frame}}
 
-
 % section frame with custom image
-%\newenvironment{sectionframe}[4][]% options, image, alpha, title
-%  {\begin{backgroundframe}{#2}{#3}{}\centering{\huge #4}\\\bigskip}
-%  {\end{backgroundframe}}
-\newenvironment{sectionframe}[2][]% options, title
-  {\begin{backgroundframe}{art_hodel_1927_rigi}{0.75}{}\centering{\huge #2}\\\bigskip}
-  {\footlineextra{Background: Hodel, 1927.}\end{backgroundframe}}
+\newenvironment{sectionframe}[4][]% options, image, alpha, title
+  {\begin{backgroundframe}{#2}{#3}{}\centering{\huge #4}\\\bigskip}
+  {\end{backgroundframe}}
 
 % coverfig source: http://tex.stackexchange.com/a/101073
-\newcommand<>{\coverfig}[1]{
-  \coordinate (zone) at ($(fig.south)!#1!(fig.north)$);
-  \fill#2[white, opacity=1.0] (fig.south west) rectangle(fig.east|-zone);
+\newcommand<>{\figvmask}[1]{
+  \coordinate (zone) at ($(fig.south west)!#1!(fig.north west)$);
+  \fill#2[white, opacity=1.0] (zone) rectangle (fig.south east);
+}
+% coverfig source: http://tex.stackexchange.com/a/101073
+\newcommand<>{\fighmask}[1]{
+  \coordinate (zone) at ($(fig.north east)!#1!(fig.north west)$);
+  \fill#2[white, opacity=1.0] (zone) rectangle (fig.south east);
 }
 
 %% covergig modified
@@ -187,8 +188,11 @@
 % add a beamer template that sets the saved argument in a box.
 % The * means that the beamer font and color "footline extra" are automatically added. 
 \defbeamertemplate*{footline extra}{default}{
-    %\begin{beamercolorbox}[ht=2.25ex,dp=1ex,leftskip=\Gm@lmargin]{footline extra}
-    \hspace{\Gm@lmargin}\insertfootlineextra
+    %\begin{beamercolorbox}[leftskip=\Gm@lmargin]{footline extra}
+    \vspace{4mm}
+    \tikz\node[anchor=base west, overlay, text width=\paperwidth, text height=2mm,
+               fill=white, fill opacity=0.75, text opacity=1, inner sep=1mm]
+      {\hspace{\Gm@lmargin}\insertfootlineextra};
     %\par\vspace{2.5pt}
     %\end{beamercolorbox}
 }
@@ -211,5 +215,5 @@
 \footlineextra{}
 \makeatother
 
-\setbeamercolor{footline extra}{fg=structure.fg}% for instance
+%\setbeamercolor{footline extra}{bg=white}% for instance
 

@@ -2,160 +2,108 @@
 % ==========
 
 \input{header.tex}
-\title{Palaeoglaciology}
+\title{Alpine palaeoglaciology}
 \author{Julien Seguinot}
-\institute{ETH Zürich and Hokkaido University}
-\date{December 17, 2018}
+\institute{ETH Zürich}
+\date{August 26, 2019}
 
 % paper size and margins
 %\geometry{papersize={192mm,120mm}}
 \setbeamersize{text margin left=4mm}
 \setbeamersize{text margin right=4mm}
-%\setbeamertemplate{footline}{\vspace{2cm}}
 \usepackage{multicol}
+\usepackage{CJKutf8}
 
 
 % ======================================================================
 \begin{document}
+\begin{CJK}{UTF8}{min}
 % ======================================================================
 
-    % LATER: add links to sources
-    % LATER: semi-transparent footline
+    % FIXME: add links to sources
 
-% Title page
+    \centering  % center all frames
 
-    % LATER background image aspect ratio
-    \begin{backgroundframe}[b]{art_hodel_1927_rigi}{0.0}{}
-      \alphabox{
+    \begin{backgroundframe}[b]{art-hodel-1927-rigi}{0.0}{}
+      \flushleft\alphabox{
         \textbf{\inserttitle}\\
         \insertauthor, \insertinstitute, \insertdate\\
         \href{mailto: seguinot@vaw.baug.ethz.ch}
              {{\faEnvelope} seguinot@vaw.baug.ethz.ch}
         \href{http://people.ee.ethz.ch/~juliens}
              {{\faHome} http://people.ee.ethz.ch/$\sim$juliens}}
-      \footlineextra{Artwork: Hodel, 1927.}
+      \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
     \end{backgroundframe}
 
-    \centering  % center all frames
-
-% Glacier cover past and present
-
-    \begin{frame}{Modern glaciers}
-      \includegraphics{plot_worldmap_now}\\
-      \pause\bigskip
-      \begin{columns}
-        \column{60mm}
-          \centering
-          Antarctica: 58.3 m s.l.e.\\
-          (Fretwell et al., 2013)
-        \column{60mm}
-          \centering
-          Greenland: 7.3 m s.l.e.\\
-          (Bamber et al., 2013)
-      \end{columns}
-      \footlineextra{Figure: after Seguinot, \emph{PhD thesis}, 2014.
-                     Data: Ehlers and Gibbard, 2007.}
-    \end{frame}
-
-    \begin{frame}{Last Glacial Maximum (25--17\,ka)}
-      \includegraphics{plot_worldmap_lgm}\\
-      \bigskip
-      \begin{columns}  % for alignment with previous slide
-        \column{120mm}
-          \centering
-          Additional 120 to 135 m s.l.e. (Clark and Mix, 2002)\pause\\
-          \emph{How can one reconstruct past glacier changes in time?}
-      \end{columns}
-      \footlineextra{Figure: after Seguinot, \emph{PhD thesis}, 2014.
-                     Data: Ehlers and Gibbard, 2007.}
-    \end{frame}
-
-
-% ----------------------------------------------------------------------
-\section{Glacial geology}
-% ----------------------------------------------------------------------
-
-    \begin{sectionframe}{Outline}
-      \begin{multicols}{2}
-        \tableofcontents
-      \end{multicols}
-    \end{sectionframe}
-
-    \begin{sectionframe}{Glacial geomorphology}
-      \emph{Reconstruct palaeo-glaciers using field evidence.}
-    \end{sectionframe}
-
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-\subsection{Historic perspective}
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-
-    \begin{sectionframe}{Historic perspective}
-      \emph{Beginning in the 19th century in the Alps.}
-    \end{sectionframe}
-
-% Glacial theory
-
-    \begin{backgroundframe}[b]{julien-xt10-170922-184315-170922-184318-5x8}{0.0}{}
-      \alphabox{A landscape of current deglaciation\\
-                Gorner Glacier, Oct. 2017}
+    \begin{backgroundframe}[b]{julien-xt10-170922-184315-184318-dev-5x8}{0.0}{}
+      \flushleft\alphabox{Gorner Glacier, 2017}
       \footlineextra{Photo: Seguinot, 2017.}
     \end{backgroundframe}
 
-    \begin{frame}{Before the glacial theory...}
-      \includegraphics[height=75mm]{art_cole_1829_deluge}\\
-      \emph{The Subsiding of the Waters of the Deluge} (Cole, 1829)
-      \footlineextra{Artwork: Cole, 1829.}
-      % https://americanart.si.edu/artwork/subsiding-waters-deluge-5080
-    \end{frame}
+    \begin{backgroundframe}[b]{julien-xt1-190601-180527-dev}{0.0}{}
+      \flushleft\alphabox{Lauterbrunnen, 2019}
+      \footlineextra{Photo: Seguinot, 2019.}
+    \end{backgroundframe}
 
-    %FIXME photo erratic
-    \begin{frame}{}
-      J.-P. Perraudin, 1815\\
-      \bigskip
-      % ``Les glaciers de nos montagnes ont eu jadis une bien plus grande
-      %   extension qu'aujourd'hui.'' p.241
-      \par\emph{``Toute notre vallée, jusqu'à une grande hauteur au-dessus de la
-              Drance, a été occupée par un vaste glacier, qui se prolongeait
-              jusques à Martigny, comme le prouvent les blocs de roches qu'on
-              trouve dans les environs de cette ville, et qui sont trop gros
-              pour que l'eau ait put les y amener.''}\\
-      \bigskip
-      in J. de Charpentier,\\
-      \emph{Essai sur les glaciers et sur le terrain erratique
-            du bassin du Rhône},
-      p.241--242, 1841.
-    \end{frame}
 
-    \begin{frame}{Mapping the erratic deposit (1841)}
-      \includegraphics[height=75mm]{map_decharpentier_1841}
-      \footlineextra{Source: de Charpentier, 1841.}
-    \end{frame}
+% ----------------------------------------------------------------------
+\section{History of the glacial theory}
+% ----------------------------------------------------------------------
+
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+\subsection{Glacial erratics}
+% The origin of the glacial theory in the Alps
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+
+    \begin{sectionframe}{art-hodel-1927-rigi}{0.75}{Outline}
+      \tableofcontents
+      \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
+    \end{sectionframe}
+
+    \begin{sectionframe}{art-hodel-1927-rigi}{0.75}{\insertsectionhead}
+      \emph{Glacial erratics and glacial cycles.}
+      \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
+    \end{sectionframe}
+
+    \begin{backgroundframe}[t]{art-triner-1865-erdmannlistein}{0.0}{}
+      \flushleft\alphabox{A glacial erratic near Zürich.}
+      \footlineextra{Artwork:
+        \href{https://www.ag.ch/staatsarchiv/suche/detail.aspx?ID=84843}
+             {Triner, 1865}.}
+    \end{backgroundframe}
+
+    \begin{backgroundframe}[t]{art-cole-1829-deluge}{0.0}{}
+      \flushleft\alphabox{The Subsiding of the Waters of the Deluge (1829)}
+      \footlineextra{Artwork:
+        \href{https://americanart.si.edu/artwork/subsiding-waters-deluge-5080}
+             {Cole, 1829}.}
+    \end{backgroundframe}
+
+    \begin{backgroundframe}[b]{map-decharpentier-1841}{0.0}{}
+      \flushleft\alphabox{{Mapping the erratic deposit (1841)}}
+      \footlineextra{Source: de Charpentier, 1841.}  %FIXME url
+    \end{backgroundframe}
 
     \begin{frame}{The glacial theory was first controversial}
       \begin{columns}
         \column{60mm}
-          \begin{itemize}
+          \begin{itemize}[<+->]
             \item Glacial landforms had been explained by a great flood.
-            \pause\bigskip
-            \item Single or multiple glaciations?
-              \begin{itemize}
-                \item catastrophism vs uniformitarianism.
-              \end{itemize}
-            \pause\bigskip
+            \bigskip
             \item Greenland and Antarctica had not yet been explored.
+            \bigskip
+            \item One or several glaciations?
           \end{itemize}
-        \column{60mm}
-          \includegraphics[width=60mm]{photo_nansen_greenland}
+        \column<2->{60mm}
+          \includegraphics[width=60mm]{photo-nansen-greenland}
           \emph{The first crossing of Greenland} (Nansen, 1988).
       \end{columns}
-      \footlineextra{Photo: Nansen, 1890.}
+      \footlineextra{Photo: Nansen, 1890.}  %FIXME url
     \end{frame}
-
-% How many glaciations
 
     \begin{frame}{Two glaciations in North America (1882)}
       \includegraphics[width=\linewidth]{map-chamberlin-1882}
-      \footlineextra{Source: Chamberlin, 1882.}
+      \footlineextra{Source: Chamberlin, 1882.}  %FIXME url
     \end{frame}
 
     \begin{frame}{Four glaciations in the Alps (1909)}
@@ -176,406 +124,157 @@
             \item<+-> \emph{How many glaciations were there in total?}
           \end{itemize}
         \column{75mm}
-          \includegraphics<1->[height=80mm]{map_penck_bruckner_1909}
+          \includegraphics<1->[height=80mm]{map-penck-bruckner-1909}
       \end{columns}
-      \footlineextra{Source: Penck and Brückner, 1909
-                             \uncover<1>{; Preusser et al. (2011).}}
+      \footlineextra{Source: Penck and Brückner, 1909; Preusser et al., 2011.}  %FIXME url
     \end{frame}
 
-% Oxygen isotopes and temperature
 
-    \begin{frame}{Isotopic composition of the ocean}
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+\subsection{Glacial cycles}
+% How many glaciations have there been in the past?
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+
+    \begin{frame}{Ice sheets change the isotopic content of the ocean}
       \begin{columns}
         \column{60mm}
           \includegraphics<1->[width=\linewidth]{cartoon-umich-d18o-a}
         \column{60mm}
           \includegraphics<2->[width=\linewidth]{cartoon-umich-d18o-b}
       \end{columns}
-      \footlineextra{Cartoon: University of Michigan.}
-      %https://globalchange.umich.edu/globalchange1/current/labs/Lab10_Vostok/Vostok.htm
+      \footlineextra{Cartoon:
+        \href{https://globalchange.umich.edu/globalchange1/current/labs/Lab10_Vostok/Vostok.htm}
+             {University of Michigan}.}
     \end{frame}
 
-    % LATER embed photos
-    \begin{frame}[t]{Glacial cycles}
+    % LATER embed photos in the plot
+    \begin{frame}[t]{The evolution of total ice volume on land}
       \begin{columns}
         \column{30mm}
           \vspace{2.5mm}
-          \includegraphics[width=\linewidth]{photo-morgane-foram-720p}\\
+          \uncover<1->{\includegraphics[width=30mm]{photo-morgane-foram-720p}}%
           \vspace{2.5mm}
-          \only<-2>{\vspace{30mm}}
-          \includegraphics<3>[width=\linewidth]{photo-csiro-bubbles-720p}
+          \uncover<2->{\includegraphics[width=30mm]{photo-csiro-bubbles-720p}}%
           \vspace{10.0mm}
         \column{90mm}
-          \includegraphics<1>[width=\linewidth]{plot_timeseries_02}
-          \includegraphics<2>[width=\linewidth]{plot_timeseries_02}
-          \includegraphics<3>[width=\linewidth]{plot_timeseries_03}
+          \includegraphics<1>[width=\linewidth]{plot_timeseries-02}%
+          \includegraphics<2>[width=\linewidth]{plot_timeseries-03}%
       \end{columns}
-      \footlineextra{Data: Lisiecki and Raymo (2005), Jouzel et al., 2007}
+      \footlineextra{Photo: Brosse, 2015;
+        Data: Lisiecki and Raymo, 2005; Jouzel et al., 2007}  % FIXME url
     \end{frame}
 
-    % FIXME reframe
-    \begin{frame}{}
-      \includegraphics[height=90mm]{hodell_2016_fig01}\\
-      \footlineextra{Figure: Hodell, 2016.}
-      % https://americanart.si.edu/artwork/subsiding-waters-deluge-5080
+    \begin{frame}{Mechanisms of glacial cycles}
+      \includegraphics[height=80mm]{hodell-2016-fig01}
+      \footlineextra{Figure:
+        \href{https://dx.doi.org/10.1126/science.aal4111}{Hodell, 2016.}}
     \end{frame}
-    % https://dx.doi.org/10.1126/science.aal4111 
-
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-\subsection{Glacial landforms}
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-
-    \begin{sectionframe}{Glacial landforms}
-      \emph{Glacial erosion and sedimentation.}
-    \end{sectionframe}
-
-% Glacial erosion
-
-    \begin{backgroundframe}[b]{julien-xt1-150910-163122}{0.0}{}
-      \alphabox{Recently exposed bedrock}
-      \vspace{30mm}
-      \footlineextra{Photo: Seguinot, 2016.}
-    \end{backgroundframe}
-
-    % LATER lake photo
-
-    \begin{frame}{Glacial erosion processes}
-      \begin{itemize}
-        \item Abrasion
-          \begin{itemize}
-            \item Debris entrained by the ice scratch the bedrock
-          \end{itemize}
-        \bigskip
-        \item Plucking
-          \begin{itemize}
-            \item Fluctuations of water pressure induce fracturing
-            \item Loose blocks are carried away by the ice
-          \end{itemize}
-      \end{itemize}
-    \end{frame}
-
-    %LATER update photos
-    \begin{frame}{Landscapes of glacial erosion}
-      \begin{columns}
-        \column{60mm}
-          \includegraphics[width=\linewidth]{photo-glacial-valley}\\
-          U-shaped valley
-        \column{60mm}
-          \includegraphics[width=\linewidth]{nasa-alps-720p}\\
-          Glacial overdeepenings
-      \end{columns}
-      \footlineextra{Source: NASA Visible Earth}
-    \end{frame}
-
-    \begin{frame}{Glaciers transport eroded materials}
-      \includegraphics[height=80mm]{art_agassiz_1840_unteraar}
-      \footlineextra{Artwork: Agassiz, 1840}
-    \end{frame}
-
-% Glacial sedimentation
-
-    \begin{frame}{Rhone Glacier}
-      \includegraphics[width=\linewidth]{julien-xt10-161027-152047-161027-152107-1x3}
-      The Rhone Glacier and its foreland.
-      \footlineextra{Photo: Seguinot, 2016.}
-    \end{frame}
-
-    \begin{backgroundframe}[b]{julien-xt10-161027-152047-161027-152107_5x8}{0.0}{}
-      \alphabox{Rhone Glacier foreland}
-      \footlineextra{Photo: Seguinot, 2016.}
-    \end{backgroundframe}
-
-    \begin{backgroundframe}[b]{julien-xt1-161027-132713}{0.0}{}
-      \alphabox{Rhone Glacier foreland}
-      \footlineextra{Photo: Seguinot, 2016.}
-    \end{backgroundframe}
-
-    \begin{backgroundframe}[b]{julien-xt1-161027-154120}{0.0}{}
-      \alphabox{Rhone Glacier moraine}
-      \footlineextra{Photo: Seguinot, 2016.}
-    \end{backgroundframe}
-
-    \begin{frame}{Rhone Glacier}
-      \includegraphics[height=80mm]{swisstopo_rhone}
-      \footlineextra{Figure: Swisstopo, 2017.}
-      % rhone https://map.geo.admin.ch/?bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.swisstopo.swissalti3d-reliefschattierung&E=2672104.23&N=1158478.89&zoom=7&lang=en&topic=ech
-    \end{frame}
-
-    \begin{frame}{Rhone Glacier}
-      \includegraphics[height=80mm]{swisstopo_gletsch}
-      \footlineextra{Figure: Swisstopo, 2017.}
-      % gletsch https://map.geo.admin.ch/?bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.swisstopo.swissalti3d-reliefschattierung&E=2671318.68&N=1157782.77&zoom=8&lang=en&topic=ech
-    \end{frame}
-
-    \begin{backgroundframe}[b]{art_hogard_1848_rhone}{0.0}{}
-      \alphabox{Rhone Glacier, 1848}
-      \footlineextra{Artwork: Hogard, 1848.}
-      %http://doi.org/10.3932/ethz-a-000016730
-    \end{backgroundframe}
-
-    \begin{frame}{Zürich Lake moraine}
-      \includegraphics[height=80mm]{swisstopo_zurich}
-      \footlineextra{Figure: Swisstopo, 2017.}
-      % zurich https://map.geo.admin.ch/?bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.swisstopo.swissalti3d-reliefschattierung&E=2685304.12&N=1245692.48&zoom=5
-    \end{frame}
-
-    \begin{frame}{Deglaciation of Zürich}
-      \begin{columns}
-        \column{40mm}
-          \includegraphics[width=40mm]{wagner-2002-fig08-720p}
-        \column{80mm}
-          \includegraphics[width=80mm]{art_heer_1865_zurich}
-      \end{columns}
-      \footlineextra{Figure: Wagner, 2002. Artwork: Heer, 1865.}
-    \end{frame}
-
-    \begin{backgroundframe}[b]{photo_drumlin_raderach}{0.0}{}
-      \alphabox{Drumlins near lake Constance}
-      \footlineextra{Photo: Martin Groll}
-      %https://commons.wikimedia.org/wiki/File:Drumlin_1789.jpg
-    \end{backgroundframe}
-
-    %FIXME photo Scotland
-    %FIXME sectionning
-
-%% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-%\subsection{Ice sheet beds}
-%% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-
-    \begin{sectionframe}{Ice sheet beds}
-      \emph{Glacial landforms at a different scale.}
-    \end{sectionframe}
-
-    \begin{frame}{Glacial lineations in the Canadian Arctic}
-      \includegraphics[height=80mm]{deangelis-phd-fig05}
-      \footlineextra{Source: De Angelis, 2007}
-    \end{frame}
-
-    \begin{frame}{Transition between slow and fast flow}
-      \includegraphics[height=80mm]{margold-etal-2015-fig02a}
-      \footlineextra{Source: Margold et al, 2015}
-    \end{frame}
-
-    \begin{frame}{A more complicated situation}
-      \includegraphics[height=80mm]{deangelis-phd-fig06}
-      \footlineextra{}
-    \end{frame}
-
-    \begin{frame}{Comparison of modern and relict bedforms}
-      \includegraphics[width=150mm]{king-etal-2009}
-      \footlineextra{Source: King et al, 2009}
-    \end{frame}
-
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-\subsection{The role of meltwater}
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-
-    \begin{sectionframe}{The role of meltwater}
-      \emph{Glaciofluvial erosion and sedimentation.}
-    \end{sectionframe}
-    % LATER nice photo of Sihl valley
-
-    \begin{frame}{The Sihl Valley}
-      \includegraphics<1>[height=80mm]{swisstopo_zurich}
-      \includegraphics<2>[height=80mm]{swisstopo_zurichsee}
-      \includegraphics<3>[height=80mm]{swisstopo_sihltal}
-    % zurich https://map.geo.admin.ch/?bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.swisstopo.swissalti3d-reliefschattierung&E=2685304.12&N=1245692.48&zoom=5
-    % zurichsee https://map.geo.admin.ch/?bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.swisstopo.swissalti3d-reliefschattierung&E=2692918.92&N=1241040.80&zoom=5&lang=en&topic=ech
-    % sihltal https://map.geo.admin.ch/?bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.swisstopo.swissalti3d-reliefschattierung&E=2697568.92&N=1237210.80&zoom=4&lang=en&topic=ech
-      \footlineextra{Figure: Swisstopo, 2017.}
-    \end{frame}
-
-    % LATER alphabox
-    % LATER background aspect ratio
-    \begin{backgroundframe}[b]{eo_baffinseaice_crop1280x960_barnesicecap}{0.0}{}
-      \begin{beamercolorbox}[sep=1em,wd=45mm]{titlelike}
-        Baffin Island
-      \end{beamercolorbox}
-      \footlineextra{Source: http://earthobservatory.nasa.gov}
-    \end{backgroundframe}
-
-    % LATER background aspect ratio
-    \begin{backgroundframe}[b]{eo_barnesicecap_crop1280x960_northslope}{0.0}{}
-      \begin{beamercolorbox}[sep=1em,wd=45mm]{titlelike}
-        Barnes ice cap
-      \end{beamercolorbox}
-      \footlineextra{Source: http://earthobservatory.nasa.gov}
-    \end{backgroundframe}
-
-    % LATER background aspect ratio
-    \begin{backgroundframe}[b]{eo_barnesicecap_crop1280x960_geelake}{0.0}{}
-      \begin{beamercolorbox}[sep=1em,wd=45mm]{titlelike}
-        Barnes ice cap
-      \end{beamercolorbox}
-      \footlineextra{Source: http://earthobservatory.nasa.gov}
-    \end{backgroundframe}
-
-    % LATER update background photo
-    \begin{backgroundframe}[b]{julien-z650-120724-075318}{0.0}{}
-      \alphabox{Meltwater channels in British Columbia}
-      \footlineextra{Photo: Seguinot, 2012.}
-    \end{backgroundframe}
-
-    % FIXME resize
-    \begin{backgroundframe}[b]{photo_channel_mendenhall_orig}{0.0}{}
-      \alphabox{R-channel at Mendenhall Glacier}
-      \footlineextra{Photo: Seguinot, 2016.}
-    \end{backgroundframe}
-    % https://www.flickr.com/photos/25949441@N02/10856649976
-
-    \begin{backgroundframe}[b]{photo_esker_fulufjallet}{0.0}{}
-      \alphabox{Eskers at Fulufjället, Sweden}
-      \footlineextra{Photo: Hanna Lokrantz, SGU, 2004}
-      % https://www.flickr.com/photos/geologicalsurveyofsweden/6853882122
-    \end{backgroundframe}
-
-    \begin{backgroundframe}[b]{photo_esker_punkaharju}{0.0}{}
-      \alphabox{Esker at Punkaharju, Finland}
-      \footlineextra{Photo: Kosti Keistinen, 2017}
-      % https://pixabay.com/en/finnish-punkaharju-landscape-summer-2963810/
-    \end{backgroundframe}
-
-
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-\subsection{Ice sheet reconstruction}
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-
-    \begin{sectionframe}{Ice sheet reconstruction}
-      \emph{Combining all the evidence.}
-    \end{sectionframe}
-
-    %LATER bigger
-    \begin{frame}{Interpreting landform associations}
-      \includegraphics<1>[height=80mm]{kleman-etal-2006-fig10a}
-      \includegraphics<2>[height=80mm]{kleman-etal-2006-fig10ab}
-         \includegraphics<3>[height=80mm]{kleman-etal-2006-fig10}
-      \footlineextra{Source: Kleman et al 2006}
-    \end{frame}
-
-    \begin{frame}{Dating techniques}
-      \begin{itemize}
-        \item Radiocarbon
-          \begin{itemize}
-            \item Organic material outside the ice margin
-          \end{itemize}
-        \bigskip
-        \item Cosmogenic nuclides
-          \begin{itemize}
-            \item Erratic boulders in stable locations
-            \item Bedrock erosion rate
-          \end{itemize}
-        \bigskip
-        \item Optically stimulated luminescence
-          \begin{itemize}
-            \item Buried glaciofluvial sediments
-          \end{itemize}
-      \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Deglaciation of the Laurentide ice sheet}
-      \begin{columns}
-        \column{80mm}
-          \includegraphics<1>[width=\linewidth]{dyke-prest-1987-s02a-h720}
-          \includegraphics<2>[width=\linewidth]{dyke-prest-1987-s02b-h720}
-          \includegraphics<3>[width=\linewidth]{dyke-prest-1987-s02c-h720}
-          \includegraphics<4>[width=\linewidth]{dyke-prest-1987-s02d-h720}
-          \includegraphics<5>[width=\linewidth]{dyke-prest-1987-s03a-h720}
-          \includegraphics<6>[width=\linewidth]{dyke-prest-1987-s03b-h720}
-          \includegraphics<7>[width=\linewidth]{dyke-prest-1987-s03c-h720}
-          \includegraphics<8>[width=\linewidth]{dyke-prest-1987-s03d-h720}
-          \includegraphics<9>[width=\linewidth]{dyke-prest-1987-s04a-h720}
-          \includegraphics<10>[width=\linewidth]{dyke-prest-1987-s04b-h720}
-          \includegraphics<11>[width=\linewidth]{dyke-prest-1987-s04c-h720}
-          \includegraphics<12>[height=80mm]{dyke-prest-1987-s01-h720}
-        \column{40mm}
-          \only<1>{18\,000}%
-          \only<2>{14\,000}%
-          \only<3>{13\,000}%
-          \only<4>{12\,000}%
-          \only<5>{11\,000}%
-          \only<6>{10\,000}%
-          \only<7>{9\,000}%
-          \only<8>{8\,400}%
-          \only<9>{8\,000}%
-          \only<10>{7\,000}%
-          \only<11>{5\,000}%
-          \only<1-11>{~years ago}%
-      \end{columns}
-      \footlineextra{Source: Dyke and Prest, 1987}
-    \end{frame}
-
-%    \begin{frame}{North american ice sheets - pre-LGM landforms}
-%      %\includegraphics[resolution=254]{kleman-etal-2010-fig06}
-%      \footlineextra{Source: Kleman et al 2010}
-%    \end{frame}
-
 
 
 % ----------------------------------------------------------------------
-\section{Glacier modelling}
+\section{Glacial landforms in the Alps}
 % ----------------------------------------------------------------------
 
-    \begin{sectionframe}{Outline}
-      \begin{multicols}{2}
-        \tableofcontents
-      \end{multicols}
+    \begin{sectionframe}{art-hodel-1927-rigi}{0.75}{\insertsectionhead}
+      \emph{The traces left by glacial erosion and sedimentation.}
+      \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
     \end{sectionframe}
 
-    \begin{sectionframe}{Numerical modelling}
+
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+\subsection{Rhône Glacier}
+% Recent moraines in front 
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+
+    \begin{backgroundframe}[t]{julien-xt1-150910-163122-dev}{0.0}{}
+      \flushright\alphabox{Recent glacial landforms near the Rhône Glacier}
+      \footlineextra{Photo: Seguinot, 2016.}
+    \end{backgroundframe}
+
+    \begin{backgroundframe}{julien-xt10-161027-152047-152107-dev-2x3}{0.75}
+                           {The Rhône Glacier in 2016}
+      \vspace{12mm}
+      \includegraphics[width=\linewidth]{julien-xt10-161027-152047-152107-dev-1x3}
+      \footlineextra{Photo: Seguinot, 2016.}
+    \end{backgroundframe}
+
+    \begin{backgroundframe}[b]{julien-xt10-161027-152047-152107-dev-2x3}{0.0}{}
+      \flushleft\alphabox{The Rhône Glacier foreland}
+      \footlineextra{Photo: Seguinot, 2016.}
+    \end{backgroundframe}
+
+    \begin{backgroundframe}[b]{julien-xt1-161027-154120-dev}{0.0}{}
+      \flushleft\alphabox{A terminal moraine}
+      \footlineextra{Photo: Seguinot, 2016.}
+    \end{backgroundframe}
+
+    \begin{backgroundframe}[b]{art-hogard-1848-rhone}{0.0}{}
+      \flushleft\alphabox{Rhône Glacier in 1848}
+      \footlineextra{Artwork:
+        \href{http://doi.org/10.3932/ethz-a-000016730}{Hogard, 1848.}}
+    \end{backgroundframe}
+
+
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+\subsection{Zürich stadial}
+% The Zürich Lake moraine and the Sihl River.
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+
+    \begin{backgroundframe}[t]{art-heer-1865-zurich}{0.0}{}
+      \flushleft\alphabox{Zürich during the deglaciation}
+      \footlineextra{Artwork: Heer, 1865}  % FIXME url
+    \end{backgroundframe}
+
+    \begin{frame}{Zürich after the glacial retreat}
+      \begin{columns}
+        \column{60mm}
+          \includegraphics[width=\linewidth]{wild-2008-fig02}
+        \column{60mm}
+          \includegraphics[width=\linewidth]{wild-2008-fig06}
+      \end{columns}
+      \bigskip
+      The Sihl River breached the moraine and built a delta in the lake.
+      \footlineextra{Figure: Wagner, 2002.}  % FIXME url
+    \end{frame}
+
+
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+\subsection{Ice sheet reconstructions}
+% Integrating geologic evidence to the ice-sheet scale.
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+
+    \begin{backgroundframe}[b]{map-coutterand-2017}{0.0}{}
+      \flushright\alphabox{The Alps during the Last Glacial Maximum}
+      \footlineextra{Figure: Coutterand, 2017.}  % FIXME url
+    \end{backgroundframe}
+
+    \begin{backgroundframe}[b]{photo-droker-mtlogan-js}{0.0}{}
+      \flushleft\alphabox{Kluane ice field}
+      \footlineextra{Photo: after
+        \href{https://www.flickr.com/photos/29750062@N06/28938896344/}
+             {R. Droker, 2013}.}
+    \end{backgroundframe}
+
+    \begin{frame}{Timing of the Last Glacial Maximum}
+      \includegraphics[height=80mm]{map-wirsig-etal-2016}
+      \footlineextra{Source: Wirsig et al., 2016.}  % FIXME url
+    \end{frame}
+
+
+% ----------------------------------------------------------------------
+\section{Paleo-glacier modelling}
+% ----------------------------------------------------------------------
+
+    \begin{sectionframe}{art-hodel-1927-rigi}{0.75}{Palaeo-glacier modelling}
       \emph{Reconstructing palaeo-glaciers using ice physics.}
+      \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
     \end{sectionframe}
 
 
 % -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 \subsection{Ice thermodynamics}
+% The physical core of an ice sheet model.
 % -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-
-    \begin{sectionframe}{Ice thermodynamics}
-      \emph{The core of the model.}
-    \end{sectionframe}
-
-%    \begin{frame}{Why model past glaciers?}
-%      \begin{itemize}[<+->]
-%        \item To \alert{complement/interpret} geomorphological evidence
-%        \item To \alert{test and constrain} glacier models
-%        \item To \alert{spin-up} an ice sheet model for a projection run
-%      \end{itemize}
-%    \end{frame}
-
-%    \begin{frame}[label=real_to_num]{From the natural world to the model}
-%      \includegraphics{graph_real_to_num}
-%    \end{frame}
-
-%    \begin{frame}{What is a glacier model?}
-%      \begin{tikzpicture}[align=center]
-%        \fill[mygreen!75] (-6,-2.5) rectangle (-2.5,2.5);
-%        \fill[myblue!75] (-2,-3) rectangle (2,3);
-%        \fill[myred!75] (2.5,-2.5) rectangle (6,2.5);
-%        \draw[-latex] (-2.5,0) -- (-2,0);
-%        \draw[-latex] (2,0) -- (2.5,0);
-%        \node at (-4.25,0) {
-%          \only<-1>{INPUT}
-%          \only<2->{topography\\[1em]
-%                    climate\\[1em]
-%                    basal heat flux\\[1em]
-%                    initial conditions\\[1em]
-%                    ...}
-%        };
-%        \node at (0,0) {
-%          \only<-3>{MODEL}
-%          \only<4->{thermodynamical core\\[3em]
-%                    boundary conditions}
-%        };
-%        \node at (4.25,0) {
-%          \only<-2>{OUTPUT}
-%          \only<3->{glacier geometry\\[1em]
-%                    velocities\\[1em]
-%                    temperature\\[1em]
-%                    stresses\\[1em]
-%                    ...}
-%        };
-%      \end{tikzpicture}
-%    \end{frame}
 
     % LATER consistent variables
     \begin{frame}<1-5>{Field equations}
@@ -658,231 +357,189 @@
 %    \end{frame}
 
     \begin{frame}{Shallow approximations}
-      \centering
       \input{../figures/pism_siassa}
-      \footlineextra{After: Winkelmann et al., 2011}
+      \footlineextra{After: Winkelmann et al., 2011.}  % FIXME url
     \end{frame}
 
 
 % -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 \subsection{Boundary conditions}
+% The atmosphere, the bedrock, and the ocean.
 % -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 
-    \begin{sectionframe}{Boundary conditions}
-      \emph{Atmosphere, bedrock, and ocean.}
-    \end{sectionframe}
-
-    \begin{frame}[label=model-interfaces]{Boundary interfaces}
-      \centering
+    % FIXME maybe improve the text
+    \begin{frame}[label=model-interfaces]{Parallel ice sheet model}
       \input{../figures/pism_interfaces}\\
       \bigskip
-      \footlineextra{After: PISM documentation (http://pism-docs.org)}
-    \end{frame}
-
-    \begin{frame}{Boundary conditions}
-      \begin{itemize}
-        \item At the atmosphere interface...
-          \begin{itemize}
-            \item mass is gained and lost (surface mass balance)
-            \item air temperature controls ice temperature
-          \end{itemize}
-        \item At the ocean interface...
-          \begin{itemize}
-            \item mass is gained and lost (basal mass balance)
-            \item water temperature controls ice temperature
-            \item calving of icebergs can occur
-          \end{itemize}
-        \item Lithosphere interface...
-          \begin{itemize}
-            \item mass is gained and lost (basal mass balance)
-            \item geothermal heat flux controls ice temperature
-            \item basal topography controls flow
-            \item sliding can occur
-          \end{itemize}
-      \end{itemize}
-      \pause
-      Boundary models are often crude simplifications of complex processes.
-    \end{frame}
-
-    \begin{frame}{Surface accumulation (snowfall)}
-      \centering
-      \input{../figures/pdd_snowfrac}\\
-      \begin{itemize}
-        \item equal to precipitation when temperature is below 0\degC
-        \item decreases to zero linearly with temperature between 0 and 2\degC
-      \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Surface ablation (melt)}
-      \begin{columns}
-        \column{60mm}
          \begin{itemize}
-           \item<1-> proportional to the number of positive degree-days
-             $$ \mathrm{PDD} = \int_{t_1}^{t_2} T^{+} \dd{t} $$
-           \item<3-> includes daily temperature variability
-             $$ T^{+} = \int_{0}^{\infty} T_{ac}
-                         \, e^{-\frac{(T-T_{ac})^2}{2\sigma^2}} \dd{T} $$
+           \only<1>{
+             \item Shallow Shelf Approximation on pseudo-pastic till
+             \item Polythermal Shallow Ice Approximation}
+           \only<2>{
+             \item Viscous-modulated elastic lithosphere
+             \item Bedrock temperature model to 3\,km depth}
+           \only<3>{
+             \item Snow precipitation before 0--2 $^\circ$C
+             \item Weekly resolved positive Degree Day melt model}
           \end{itemize}
-        \column{60mm}
-          \centering    
-          \only<1-3>{\input{../figures/pdd_anncycle}}
-      \end{columns}
+      \footlineextra{After: \href{http://pism_docs.org}{PISM docs, 2014}.}
     \end{frame}
 
-    \begin{frame}{Climate forcing}
-      In palaeoglacier modelling, input climate is the main unknown.\\
-      Sources of information include:\\\bigskip
-      \begin{itemize}
-        \item Palaeo-climate simulations
-          \begin{itemize}
-            \item Coarse resolution
-            \item Based on ice sheet reconstruction
-          \end{itemize}
-        \item Palaeo-climate proxies
-          \begin{itemize}
-            \item Often far from glaciers
-          \end{itemize}
-      \end{itemize}
-    \end{frame}
-
-
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-\subsection{Numerical implementation}
-% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-
-    \begin{sectionframe}{Numerical implementation}
-      \emph{The equations of the physical model describe \alert{continuous}
-        fields, \\ but computers only deal with a \alert{finite number of
-        points} in time and space.}
-    \end{sectionframe}
-
-    \begin{frame}{Example: the equation of temperature diffusion}
-      \begin{itemize}[<+->]
-        \item We use the previous temperature equation...
-        $$\frac{\partial T}{\partial t}
-          = \mathbf{v} \cdot \vec{\mathrm{grad}}\,T
-          + \frac{k}{\rho c} \Delta T
-          + \frac{4 \mu \dot \epsilon_e^2}{\rho c}$$
-        \item ... considering only diffusion...
-        $$\frac{\partial T}{\partial t}
-         = \frac{k}{\rho c} \Delta T$$
-        \item ... in the vertical dimension only.
-        $$\frac{\partial T}{\partial t}
-          = \kappa\,\frac{\partial^2 T}{\partial z^2}
-          \qquad \mathrm{with} \qquad
-          \kappa = \frac{k}{\rho c}$$
-      \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Discretization}
-      \begin{itemize}[<+->]
-        \item In the numerical model, temperature is defined on a grid:
-        $$T_i^n=T(z_i,t^n)$$
-        \item Derivatives are approximated (\alert{finite difference method}):
-        $$\frac{\partial T}{\partial t}\simeq\frac{T_i^{n+1}-T_i^n}{\delta t}
-          \qquad \mathrm{and} \qquad
-          \frac{\partial^2 T}{\partial z^2}\simeq
-            \frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
-        \item The temperature equation becomes:
-        $$\frac{T_i^{n+1}-T_i^n}{\delta t}
-        =\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
-        \item This method is said \alert{explicit} as one can write:
-        $$T_i^{n+1} = f(T_{i+1}^n, T_i^n, T_{i-1}^n)$$
-      \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Some first-order discretization schemes}
-      \begin{itemize}[<+->]
-        \item Explicit scheme
-        $$\frac{T_i^{n+1}-T_i^n}{\delta t}
-         =\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
-        \item Implicit scheme
-        $$\frac{T_i^{n+1}-T_i^n}{\delta t}
-          =\kappa\,\frac{T_{i+1}^{n+1}-2T_i^{n+1}+T_{i-1}^{n+1}}{\delta z^2}$$
-        \item Semi-implicit (time-centered) scheme
-        $$\frac{T_i^{n+1}-T_i^n}{\delta t}
-          =\frac{1}{2}\,\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}
-          +\frac{1}{2}\,\kappa\,\frac{T_{i+1}^{n+1}-2T_i^{n+1}+T_{i-1}^{n+1}}{\delta z^2}$$
-      \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Numerical instability}
-      Different schemes have different properties of
-      \alert{convergence} and \alert{stability}.
-      \begin{columns}
-      \column{60mm}
-        \begin{block}{Stable}
-          \includegraphics[width=\linewidth]{seguinot_2009_stable}
-        \end{block}
-      \pause
-      \column{60mm}
-        \begin{block}{Unstable}
-          \includegraphics[width=\linewidth]{seguinot_2009_unstable}
-        \end{block}
-      \end{columns}
-    \end{frame}
-
-    \begin{frame}{Other discretization methods}
-      There exist other methods than the \alert{finite difference} method:
-      \begin{itemize}
-        \item Finite element method
-        \item Discrete element method
-        \item Spectral methods
-        \item ...
-      \end{itemize}
-    \end{frame}
+%    \begin{frame}{Surface accumulation (snowfall)}
+%      \input{../figures/pdd_snowfrac}\\
+%      \begin{itemize}
+%        \item equal to precipitation when temperature is below 0\degC
+%        \item decreases to zero linearly with temperature between 0 and 2\degC
+%      \end{itemize}
+%    \end{frame}
+%
+%    \begin{frame}{Surface ablation (melt)}
+%      \begin{columns}
+%        \column{60mm}
+%         \begin{itemize}
+%           \item<1-> proportional to the number of positive degree-days
+%             $$ \mathrm{PDD} = \int_{t_1}^{t_2} T^{+} \dd{t} $$
+%           \item<3-> includes daily temperature variability
+%             $$ T^{+} = \int_{0}^{\infty} T_{ac}
+%                         \, e^{-\frac{(T-T_{ac})^2}{2\sigma^2}} \dd{T} $$
+%          \end{itemize}
+%        \column{60mm}
+%          \only<1-3>{\input{../figures/pdd_anncycle}}
+%      \end{columns}
+%    \end{frame}
 
 
 % ----------------------------------------------------------------------
 \subsection{Example application}
+% Modelling the Alpine paleo-glaciers.
 % ----------------------------------------------------------------------
 
-    \begin{sectionframe}{Example}
-      \emph{Modelling Alpine paleo-glaciers.}
-    \end{sectionframe}
+%    \begin{sectionframe}{art-hodel-1927-rigi}{0.75}{Open questions}
+%      \begin{enumerate}
+%        \item what climate \& glacial history lead to the maximum ice \alert{extent},
+%        \item to which extent ice \alert{flow} was controlled by subglacial topography,
+%        \item what caused differences in \alert{timing} of the Last Glacial Maximum,
+%        \item how far above the trimline was the ice \alert{surface} located, and
+%      \end{enumerate}
+%      \bigskip\bigskip\bigskip\pause
+%      Tool: \alert{Parallel} Ice Sheet Model (PISM)\\
+%      \bigskip
+%      % {\small(3D energy balance, polythermal SIA, pseudo-plastic till SSA,\\
+%      %         PDD mass balance, viscous-modulated bedrock deformation)}\\
+%      \bigskip\pause
+%      Method: High-resolution simulation of the \alert{last glacial cycle}\\
+%      \bigskip
+%      {\small(120--0\,ka, 1x1\,km x 20\,m, 576 processors, 33 days)}\\
+%    \end{sectionframe}
 
-%    \begin{frame}{Last Glacial Maximum ice extent}
-%      \includegraphics[height=80mm]{alpcyc_hr_locmap}
-%      \footlineextra{Data: SRTM; Natural Earth; Ehlers et al., 2011.}
+%    \begin{frame}{Present-based spatial inputs}
+%      \includegraphics[height=80mm]{alpcyc_hr_inputs}
+%      \footlineextra{Data: WorldClim; ERA-Interim; Goutorbe et al., 2011.}  % FIXME url
+%    \end{frame}
+%
+%    \begin{frame}{Simulation of the last glacial cycle (120--0\,kyr)}
+%      \begin{columns}
+%        \column{80mm}
+%          \begin{itemize}
+%%            \item<+-> Spatial \alert{climate patterns} from today
+%%              \begin{itemize}
+%%                \item monthly temperature from WorldClim
+%%                \item monthly precipitation from WorldClim
+%%                \item monthly temp. stdev. from ERA-Interim
+%%              \end{itemize}
+%%            \bigskip
+%            \item<+-> Palaeo-climate proxy records
+%              \begin{itemize}
+%                \item Continuous 120--0\,ka
+%                \item High resolution $\approx$1\,ka
+%                \item \sout<2->{Not far from the Alps}
+%              \end{itemize}
+%            \bigskip
+%            \item<+-> Time-dependent \alert{temperature} change from
+%              \begin{itemize}
+%                \item \textbbf{GRIP} Greenland ice \chem{\delta^{18}O}
+%                \item \textrbf{EPICA} Antarctic ice \chem{\delta^{18}O}
+%                \item \textgbf{MD01-2444} sediment \chem{U^{K'}_{37}}
+%                \item linearly scaled to LGM ice extent
+%              \end{itemize}
+%            \bigskip
+%            \item<+-> Two \alert{precipitation} parametrizations
+%              \begin{itemize}
+%                \item Constant in time
+%                \item Decreased with temperature
+%              \end{itemize}
+%          \end{itemize}
+%        \column{40mm}
+%          \uncover<2->{\includegraphics[height=80mm]{alpcyc_lr_records}}
+%      \end{columns}
+%    \end{frame}
+%
+%    \begin{frame}{Temperature forcing \only<2->{and modelled ice volume}}
+%      \begin{tikzpicture}
+%        \node[inner sep=0] (fig)
+%          {\includegraphics<-2|handout:0>[width=\linewidth]{alpcyc_lr_timeseries_nopp}%
+%           \includegraphics<3->[width=\linewidth]{alpcyc_lr_timeseries}};
+%        \figvmask<-1|handout:0>{0.54}
+%        \figvmask<2-|handout:0>{0.0}
+%      \end{tikzpicture}\\
+%      \uncover<2->{
+%        \only<-2>{Ice volume fluctuations are \alert{rapid},
+%                 but smaller with \textrbf{EPICA} forcing.}
+%        \only<3->{These fluctuations are \alert{smoothed},
+%                 in \alert{reduced} precipitation runs.}}
+%      \footlineextra{Data: Dansgaard et al., 1993; Jouzel et al., 2007;
+%                           Martrat et al., 2007}  % FIXME url
+%    \end{frame}
+%
+%    \begin{frame}{Glaciated areas during MIS 2 \only<2->{and 4}}
+%      \begin{tikzpicture}
+%        \node[inner sep=0] (fig)
+%          {\includegraphics<-2|handout:0>[width=\linewidth]{alpcyc_lr_footprints_nopp}%
+%           \includegraphics<3->[width=\linewidth]{alpcyc_lr_footprints}};
+%        \figvmask<-1|handout:0>{0.47}
+%        \figvmask<2-|handout:0>{0.0}
+%      \end{tikzpicture}\\
+%      \uncover<2->{
+%        \only<-2>{Using constant precipitation, only \textrbf{EPICA}
+%                  yield realistic \alert{MIS 4}.}
+%        \only<3->{\textbbf{GRIP} and \textgbf{MD01-2444} give
+%                  better results with \alert{reduced} precipitation but still too big.}}
 %    \end{frame}
 
-    \begin{frame}{The Alps during the Last Glacial Maximum}
-      \includegraphics[height=80mm]{map_coutterand_2017}
-      \footlineextra{Figure: Coutterand, 2017.}
+    \begin{frame}{Modelled glacier dynamics of the last glacial cycle}
+      \includegraphics[height=75mm]{vimeo-alps-4k-zo-ja}\\
+%      最終氷期におけるアルプスの氷河の前進と後退
+      \footlineextra{Video:
+        \href{https://vimeo.com/300927091}{Seguinot, 2019}.}  % EN: 294517816
     \end{frame}
 
-    \begin{backgroundframe}[b]{photo_mount_logan}{0.0}{}
-      \alphabox{Kluane ice field}
-      \footlineextra{Photo: Richard Droker.}
-    \end{backgroundframe}
+%    \begin{frame}{Ice extent and flow pattern at 24.6 ka}
+%      \includegraphics[height=80mm]{alpcyc_hr_maxextvel}\\
+%      Ice \alert{flow} mostly along topography but not always.
+%    \end{frame}
+%
+%    \begin{frame}{Comparison with observed trimline elevations}
+%      \begin{tikzpicture}
+%        \node[inner sep=0] (fig)
+%          {\includegraphics[width=\linewidth]{alpcyc_hr_trimlines}};
+%        \fighmask<-1|handout:0>{0.50}
+%        \fighmask<2-|handout:0>{0.0}
+%      \end{tikzpicture}\\
+%      \uncover<2->{Modelled ice \alert{surface} is 861 m above observed trimlines.}
+%      \footlineextra{Data: Kelly et al., 2004.}  % FIXME url
+%    \end{frame}
+%
+%    \begin{frame}{Timing of the Last Glacial Maximum}
+%      \includegraphics[height=80mm]{alpcyc_hr_maxthkage}\\
+%      Last Glacial Maximum \alert{timing} varies across the range.
+%    \end{frame}
+%
+%    \begin{frame}{Multiple advances and retreats onto the foreland}
+%      \includegraphics[height=80mm]{alpcyc_hr_profiles_four}\\
+%      Individual glacier \alert{dynamics} are controlled by catchment hypsometries.
+%    \end{frame}
 
-    \begin{sectionframe}{Problem statement}
-      \begin{itemize}
-        \item Can an ice flow model reproduce geologic reconstructions?
-          \begin{itemize}
-            \item Last Glacial Maximum ice \alert{extent} from moraines
-            \item Last Glacial Maximum ice \alert{thickness} from trimlines
-          \end{itemize}
-      \end{itemize}
-      \bigskip\bigskip\bigskip\pause
-      Tool: Parallel Ice Sheet Model (PISM)\\
-      \bigskip
-      Method: High-resolution simulation of the last glacial cycle (120--0 ka)
-    \end{sectionframe}
-
-    \begin{frame}{Modelled Last Glacial Maximum}
-      \includegraphics[height=80mm]{alpcyc_hr_maxextvel}
-    \end{frame}
-
-    \begin{frame}{Multiple advance and retreat}
-      \includegraphics[height=80mm]{alpcyc_hr_profiles_four}
-    \end{frame}
-
-    \begin{frame}{Timing of Last Glacial Maximum}
-      \includegraphics[height=80mm]{alpcyc_hr_maxthkage}
-    \end{frame}
-
-    \begin{sectionframe}{Conclusions}
+    \begin{sectionframe}{art-hodel-1927-rigi}{0.75}{Conclusions}
       \begin{itemize}
         \item Glacial geology allows reconstruction of palaeo-glaciers\\
           \emph{\small but the record is sparse in time and space.}
@@ -890,12 +547,18 @@
         \item Numerical modelling allows to fill the gaps\\
           \emph{\small but uncertainties are large.}
       \end{itemize}
+      \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
     \end{sectionframe}
 
-    \begin{sectionframe}{Thank you!}
-    \end{sectionframe}
+    \begin{backgroundframe}[b]{art-fearnley-1838-grindelwald}{0.0}{}
+      \flushleft\alphabox{Lower Grindelwald Glacier in 1838}
+      \footlineextra{Artwork:
+        \href{https://commons.wikimedia.org/wiki/File:Thomas_Fearnley_-_Grindelwaldgletscher_-_Google_Art_Project.jpg}
+             {Fearnley, 1838}.}
+    \end{backgroundframe}
 
 
 % ======================================================================
+\end{CJK}
 \end{document}
 % ======================================================================
