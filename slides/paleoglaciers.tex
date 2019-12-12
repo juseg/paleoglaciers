@@ -1,13 +1,22 @@
+% PALEOGLACIAL MODELLING
+% ======================
+
+% Packages
+% --------
 \documentclass{beamer}
-\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
 %\usepackage[frenchb]{babel}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 %\usepackage{natbib}
 \usepackage{rotating}
-\usetheme{Stockholm}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
-\graphicspath{{../../figures/}}
+\graphicspath{{figures/}}
 \let\Tiny=\tiny
+\usetheme{Stockholm}
+
+% My commands
+% -----------
+%\renewcommand<>{\includegraphics}[1]{\includegraphics<#2>[resolution=254]{#1}}
 
 \setbeamercolor{caption}{parent=frametitle}
 
@@ -22,6 +31,7 @@
 	\end{beamercolorbox}}
 
 \newcommand{\figurebox}[2]{%
+	\centering%
 	\includegraphics[width=\linewidth]{#1}\\%
 	\captionbox{#2}}
 
@@ -29,29 +39,69 @@
 	\hfill%
 	\begin{sideways}%
 		\begin{minipage}{75mm}%
-			\includegraphics[angle=-90,width=\linewidth]{#1}\newline%
+			\includegraphics[angle=-90,resolution=254]{#1}\newline%
 			\captionbox{#2}%
 		\end{minipage}%
 	\end{sideways}%
 	\hfill}
 
-\title[Numerical glacier modelling]{Numerical glacier (ice sheet) modelling}
+% Footline command
+% ----------------
+% From http://tex.stackexchange.com/questions/5491/how-do-i-insert-text-into-the-footline-of-a-specific-slide-in-beamer
+
+\makeatletter
+
+% add a macro that saves its argument
+\newcommand{\footlineextra}[1]{\gdef\insertfootlineextra{#1}}
+\newbox\footlineextrabox
+
+% add a beamer template that sets the saved argument in a box.
+% The * means that the beamer font and color "footline extra" are automatically added. 
+\defbeamertemplate*{footline extra}{default}{
+    \begin{beamercolorbox}[ht=2.25ex,dp=1ex,leftskip=\Gm@lmargin]{footline extra}
+    \insertfootlineextra
+    %\par\vspace{2.5pt}
+    \end{beamercolorbox}
+}
+
+\addtobeamertemplate{footline}{%
+    % set the box with the extra footline material but make it add no vertical space
+    \setbox\footlineextrabox=\vbox{\usebeamertemplate*{footline extra}}
+    \vskip -\ht\footlineextrabox
+    \vskip -\dp\footlineextrabox
+    \box\footlineextrabox%
+}
+{}
+
+% patch \begin{frame} to reset the footline extra material
+\let\beamer@original@frame=\frame
+\def\frame{\gdef\insertfootlineextra{}\beamer@original@frame}
+\footlineextra{}
+\makeatother
+
+\setbeamercolor{footline extra}{fg=structure.fg}% for instance
+
+% This document
+% -------------
+
+\title[Palæoglacial modelling]{Numerical modelling of past glaciers and ice sheets}
 %\subtitle{}
 \author[Julien Seguinot]{Julien Seguinot}
 \institute[INK]{}
-\date{1 Avril 2010}
+\date{12 December 2012}
 
-\titlegraphic{\begin{columns}
-	\column{40mm}
-		\figurebox{10-09-04-07-w400}{A glacier}
-	\column{40mm}
-		\figurebox{code-sediment}{A glacier model}
-	\column{40mm}
-		\figurebox{10-09-21-corentin-05-w400}{A glacier modeller}
-	\end{columns}}
+% TODO: title graphic?
+%\titlegraphic{\begin{columns}
+%	\column{40mm}
+%		\figurebox{10-09-04-07-w400}{A glacier}
+%	\column{40mm}
+%		\figurebox{code-sediment}{A glacier model}
+%	\column{40mm}
+%		\figurebox{10-09-21-corentin-05-w400}{A glacier modeller}
+%	\end{columns}}
 
-\AtBeginSection[]{\begin{frame}{\insertsection}
-	\tableofcontents[currentsection,hideothersubsections]
+\AtBeginSection[]{\begin{frame}{Objectives}
+	\tableofcontents[currentsection,hideallsubsections]
 \end{frame}}
 
 % BEGIN DOCUMENT
@@ -60,90 +110,299 @@
 
 \maketitle
 
+\begin{frame}{Example: glaciation of the Alps}
+	\includegraphics<1>{pism-alps-stepcool+lc+ssa-cool10-0000}
+	\includegraphics<2>{pism-alps-stepcool+lc+ssa-cool10-0050}
+	\includegraphics<3>{pism-alps-stepcool+lc+ssa-cool10-0100}\\
+	\captionbox{Movie: simulation of glacial inception in the European Alps}
+\end{frame}
 
+\begin{frame}{Example: glaciation of the Alps}
+	\begin{itemize}[<+->]
+		\item Beautiful output
+			\begin{itemize}
+				\item Very detailed in time and space
+				\item Many output fields (geometry, flow, rebound, and much more...)
+				\item Highly dynamic
+			\end{itemize}
+		\item But how \alert{realistic} is that?
+	\end{itemize}
+\end{frame}
 
-% Introduction
-% ------------
-\section*{Introduction}
+\begin{frame}{Objectives}
+	\tableofcontents[hideallsubsections]
+\end{frame}
 
-% What is a glacier model?
-% ~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{What is a glacier model?}
+% --------------------------------
+\section{Why model past glaciers?}
+% --------------------------------
 
-\begin{frame}[label=ism-io]{A glacier model from outside}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Example: reconstructing the glacial history of North America}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{map-northamerica-beamer}}\frame[label=map-northamerica]{
+	\footlineextra{Data: ETOPO1; Natural Earth}
+}}
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{eo-barnesicecap-crop1280x960-northslope}}\frame{
+	\frametitle{Barnes ice cap}
+	\footlineextra{Source: http://earthobservatory.nasa.gov}
+}}
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{eo-barnesicecap-crop1280x960-geelake}}\frame{
+	\frametitle{Barnes ice cap - meltwater channels}
+	\footlineextra{Source: http://earthobservatory.nasa.gov}
+}}
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{eo-baffinseaice-crop1280x960-barnesicecap}}\frame{
+	\frametitle{Barnes ice cap - paradoxical location}
+	\footlineextra{Source: http://earthobservatory.nasa.gov}
+}}
+
+\begin{frame}{Barnes ice cap - summary}
+	\begin{itemize}
+		\item Little accumulation
+		\item High melt
+		\item Unstable location
+	\end{itemize}
+	$\Rightarrow$ The \alert{remnant} of a much larger ice sheet
+\end{frame}
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{map-northamerica-beamer}}\againframe{map-northamerica}}
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{10-07-03-16c-crop1280x960}}\frame{
+	\frametitle{British Columbia - meltwater channels}
+}}
+
+% TODO: more photos!
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{map-northamerica-beamer}}\againframe{map-northamerica}}
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{eo-usnortheast-crop1280x960-longisland}}\frame{
+	\frametitle{Long Island and Cape Cod}
+	\footlineextra{Source: http://earthobservatory.nasa.gov}
+}}
+
+\begin{frame}<1>[label=landforms]{The landform record}
+	\begin{itemize}
+		\item Markers of former ice margin locations
+			\begin{itemize}
+				\item Meltwater channels
+				\item Terminal moraines
+				\item ...
+			\end{itemize}
+		\pause
+		\item Markers of former ice flow direction
+			\begin{itemize}
+				\item Glacial lineations
+				\item Eskers
+				\item ...
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Deglaciation maps of North America - method}
+	\begin{columns}
+	\column{80mm}
+		\includegraphics[width=\linewidth]{dyke-prest-1987-s01-h720}
+	\column{40mm}
+		\centering
+		\includegraphics[resolution=254]{kleman-etal-2006-fig02b-h300}\\
+		\longcaptionbox{Reconstructing former positions of the ice margin}
+	\end{columns}
+	\footlineextra{Source Dyke and Prest, 1987; Kleman et al, 2006}
+\end{frame}
+
+\begin{frame}{Deglaciation maps of North America - result}
+	\begin{columns}
+	\column{75mm}
+		\includegraphics<1>[width=\linewidth]{dyke-prest-1987-s02a-h720}
+		\includegraphics<2>[width=\linewidth]{dyke-prest-1987-s02b-h720}
+		\includegraphics<3>[width=\linewidth]{dyke-prest-1987-s02c-h720}
+		\includegraphics<4>[width=\linewidth]{dyke-prest-1987-s02d-h720}
+		\includegraphics<5>[width=\linewidth]{dyke-prest-1987-s03a-h720}
+		\includegraphics<6>[width=\linewidth]{dyke-prest-1987-s03b-h720}
+		\includegraphics<7>[width=\linewidth]{dyke-prest-1987-s03c-h720}
+		\includegraphics<8>[width=\linewidth]{dyke-prest-1987-s03d-h720}
+		\includegraphics<9>[width=\linewidth]{dyke-prest-1987-s04a-h720}
+		\includegraphics<10>[width=\linewidth]{dyke-prest-1987-s04b-h720}
+		\includegraphics<11>[width=\linewidth]{dyke-prest-1987-s04c-h720}
+	\column{45mm}
+		\only<1>{\longcaptionbox{18~000 years before present}}
+		\only<2>{\longcaptionbox{14~000 years before present}}
+		\only<3>{\longcaptionbox{13~000 years before present}}
+		\only<4>{\longcaptionbox{12~000 years before present}}
+		\only<5>{\longcaptionbox{11~000 years before present}}
+		\only<6>{\longcaptionbox{10~000 years before present}}
+		\only<7>{\longcaptionbox{9~000 years before present}}
+		\only<8>{\longcaptionbox{8~400 years before present}}
+		\only<9>{\longcaptionbox{8~000 years before present}}
+		\only<10>{\longcaptionbox{7~000 years before present}}
+		\only<11>{\longcaptionbox{5~000 years before present}}
+	\end{columns}
+	\footlineextra{Source: Dyke and Prest, 1987}
+\end{frame}
+
+\begin{frame}{Deglaciation maps of North America - drawbacks}
+	\begin{itemize}
+		\item Large uncertainties on the dates
+			\begin{itemize}
+				\item Deglaciation ages are \alert{minimum} ages
+			\end{itemize}
+		\pause
+		\item Include subjective interpolation of the landform record
+			\begin{itemize}
+				\item In space
+				\item In time
+			\end{itemize}
+		\pause
+		\item Limited access to older landforms
+			\begin{itemize}
+				\item How about the build-up phase?
+			\end{itemize}
+	\end{itemize}
+	\pause
+	$\Rightarrow$ Let's have a look at the \alert{subglacial} record
+\end{frame}
+
+{\usebackgroundtemplate{\includegraphics[resolution=254]{sarah-ge-dubawnt-w1280}}\frame{
+	\frametitle{Dubawnt Lake palæo-ice stream bed}
+	\footlineextra{Source: Google Earth}
+}}
+
+\againframe<2>{landforms}
+
+\begin{frame}{Interpreting glacial lineations}
+	\includegraphics<1>[width=91.8mm]{kleman-etal-2006-fig10a}
+	\includegraphics<2>[width=91.8mm]{kleman-etal-2006-fig10ab}
+	\includegraphics<3>[width=91.8mm]{kleman-etal-2006-fig10}
+	\footlineextra{Source: Kleman et al 2006}
+\end{frame}
+
+\begin{frame}{North american ice sheets - pre-LGM landforms}
+	\includegraphics[resolution=254]{kleman-etal-2010-fig06}
+	\footlineextra{Source: Kleman et al 2010}
+\end{frame}
+
+%\begin{frame}{How about other ice sheets?}
+%	\begin{columns}
+%	\column{75mm}
+%		\includegraphics[width=\linewidth]{wp-grobe-2008-north-intgl+gl-h750}
+%	\column{45mm}
+%		\longcaptionbox{Present and maximum glaciation in the northern hemisphere.}
+%	\end{columns}
+%	\footlineextra{Source Grobe, 2008; after Ehlers and Gibbard, 2007.}
+%\end{frame}
+
+\begin{frame}{The landform record - summary}
+	\begin{itemize}
+		\item Sparse in space and time
+		\item Very restricted before LGM
+	\end{itemize}
+	\pause
+	$\Rightarrow$ \alert{Numerical modelling} can help
+	\begin{itemize}
+		\item Movie: the last glacial cycle in North America
+	\end{itemize}
+\end{frame}
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Example: projecting the future of the Greenland ice sheet}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\begin{frame}{Modelling the Greenland ice sheet}
+	\figurebox{greve-2000-fig02-1x4-w1200}{Simulations of the Greenland ice sheet under warmer climates}
+	\footlineextra{Source: Greve, 2000}
+\end{frame}
+
+\begin{frame}{Modelling the Greenland ice sheet - uncertainties}
+	\figurebox{applegate-etal-disc-fig07}{Comparison of modelled ice surface to present day}
+	\footlineextra{Source: Applegate et al., in review}
+\end{frame}
+
+\begin{frame}{Modelling the Greenland ice sheet - uncertainties}
+	\figurebox{applegate-etal-disc-fig02b}{Future projections of ice volume change}
+	\footlineextra{Source: Applegate et al., in review}
+\end{frame}
+
+% ~~~~~~~~~~~~~~~~~~
+\subsection{Summary}
+% ~~~~~~~~~~~~~~~~~~
+
+\begin{frame}{\insertsection}
+	\includegraphics<1>[width=120mm]{graph-ism-geom-01-ice-sheet-models}
+	\includegraphics<2>[width=120mm]{graph-ism-geom-02-future-ice-sheets}
+	\includegraphics<3>[width=120mm]{graph-ism-geom-03-physics}
+	\includegraphics<4>[width=120mm]{graph-ism-geom-04-inputs}
+	\includegraphics<5>[width=120mm]{graph-ism-geom-05-numerics}
+	\includegraphics<6>[width=120mm]{graph-ism-geom-06-past-ice-sheets}
+	\includegraphics<7>[width=120mm]{graph-ism-geom-07-geom-rec}
+	\includegraphics<8>[width=120mm]{graph-ism-geom-08-geom-inputs}
+	\includegraphics<9>[width=120mm]{graph-ism-geom-09-validation}
+\end{frame}
+
+% TODO: use North America figures instead of fennoscandia
+
+\begin{frame}{\insertsection}
+	\begin{itemize}
+		\item Understanding past glacier fluctuations
+		\item Constraining ice sheet models
+	\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------
+\section{What are the uncertainties of palæo-glacial models?}
+% -----------------------------------------------------------
+
+% ~~~~~~~~~~~~~~~~~~~
+\subsection{Overview}
+% ~~~~~~~~~~~~~~~~~~~
+
+\begin{frame}[label=ism-io]{What is a glacier model?}
 	\only<1>{\figurebox{graph-ism-io}{A glacier model is a computer program}}
 	\only<2>{\figurebox{graph-ism-io+out}{A glacier model is a computer program}}
+	\only<3>{\figurebox{graph-ism-io+in+out}{A glacier model is a computer program}}
 \end{frame}
 
-\begin{frame}{A glacier model from inside}
-	\begin{columns}
-	\column{60mm}
-		\only<1>{\includegraphics[width=\linewidth]{code-sico-stresses}}
-		\only<2>{\includegraphics[width=\linewidth]{temp-budd-1970-p2-5}}
-	\column{60mm}
-	\begin{itemize}[<+->]
-		\item 10 to 10000s of lines of code
-		\item Pages of equations
+\begin{frame}[label=real-to-num]{What is a glacier model?}
+	\figurebox{graph-real-to-num}{A glacier model is an approximation of reality}
+\end{frame}
+
+% ~~~~~~~~~~~~~~~~~~~
+\subsection{Dynamics}
+% ~~~~~~~~~~~~~~~~~~~
+
+\begin{frame}{A hierarchy of stress balances}
+	\begin{itemize}
+		\item Full-stokes models
+			\begin{itemize}
+				\item Usually inappropriate for palæo-glacial modelling
+			\end{itemize}
+		\item Shallow models
+			\begin{itemize}
+				\item Zeroth order (SIA, SSA)
+				\item First order
+				\item 'Hybrid'
+			\end{itemize}
 	\end{itemize}
-	\end{columns}
 \end{frame}
 
-\begin{frame}{Why model glaciers?}
-\begin{columns}
-	\column{44mm}
-		\figurebox{greve-2000-fig02-h660}{Future predictions}
-	\column{46.7mm}
-		\figurebox{golledge-etal-2008-fig09-h660}{Past reconstructions}
-	\end{columns}
+% TODO: add figures, equations
+
+\begin{frame}{Shallow-ice vs. 'hybrid' model}
+	\includegraphics[height=64mm]{bueler-etal-submitted-fig01}\\
+	\captionbox{Observed and modelled surface velocities on Greenland}
+	\footlineextra{Source: Bueler et al., submitted}
 \end{frame}
 
-%! TODO: side captions, and uncover piecewise
+% TODO: add section about mass balance
 
-\begin{frame}[label=real-to-num]{How to model glaciers?}
-	\figurebox{graph-real-to-num}{From the real world to the model}
-\end{frame}
+% ~~~~~~~~~~~~~~~~~~~
+\subsection{Numerics}
+% ~~~~~~~~~~~~~~~~~~~
 
-%! TODO: change physical world by real world
-
-% The mathematical model
-% ----------------------
-\section{The mathematical model}
-
-% Ice as a continuum
-% ~~~~~~~~~~~~~~~~~~
-\subsection{Ice as a continuum}
-
-%! TODO: add a slide with numbers
-
-% The variables
-% ~~~~~~~~~~~~~
-\subsection{The variables}
-
-%! TODO: add drawing for the stresses
-
-% The model components
-% ~~~~~~~~~~~~~~~~~~~~
-\subsection{The model components}
-
-%! TODO: ism-io with components, inputs
-
-% Approximations for ice flow
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Approximations for ice flow}
-
-%! TODO: add text?
-
-
-
-% The numerical model
-% -------------------
-\section{The numerical model}
-
-% Discretization
-% ~~~~~~~~~~~~~~
-\subsection{Discretization}
-
-\begin{frame}{Putting the equations on a discrete grid}
+\begin{frame}{Discretization}
 	\begin{itemize}
 		\item Real cases can't be solved analytically
 		\item Computers deal with a finite amount of quantities
@@ -155,7 +414,7 @@ $$\frac{\partial T}{\partial t}\simeq\frac{T_i^{n+1}-T_i^n}{\delta t}$$
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Numerical instability}
+\begin{frame}{Discretization - numerical instability}
 	\begin{columns}
 	\column{60mm}
 		\figurebox{bueler-2010-stable}{Stable}
@@ -164,136 +423,94 @@ $$\frac{\partial T}{\partial t}\simeq\frac{T_i^{n+1}-T_i^n}{\delta t}$$
 	\end{columns}
 \end{frame}
 
-% Programming
-% ~~~~~~~~~~~
-\subsection{Programming}
+%\begin{frame}{Programming steps}
+%	\begin{itemize}
+%		\item Choose a programming environment
+%			\begin{itemize}
+%				\item High level: Octave, Matlab, Scilab...
+%				\item Low level: Fortran, C++...
+%			\end{itemize}
+%		\item Parse the code into parts (subroutines, classes, ...)
+%		\item Find best algorythms
+%		\item Debug, debug, debug...
+%	\end{itemize}
+%\end{frame}
 
-\begin{frame}{Programming steps}
-	\begin{itemize}
-		\item Choose a programming environment
+% TODO: bugs
+
+% TODO: open-source models
+
+% ~~~~~~~~~~~~~~~~~~
+\subsection{Summary}
+% ~~~~~~~~~~~~~~~~~~
+
+\begin{frame}{Uncertainties in glacier models}
+	\begin{itemize}[<+->]
+		\item At the numerical level
 			\begin{itemize}
-				\item High level: Octave, Matlab, Scilab...
-				\item Low level: Fortran, C++...
+				\item Discretization errors (small)
+				\item Bugs
 			\end{itemize}
-		\item Parse the code into parts (subroutines, classes, ...)
-		\item Find best algorythms
-		\item Debug, debug, debug...
-	\end{itemize}
-\end{frame}
-
-
-
-% Verification and validation
-% ---------------------------
-\section{Verification and validation}
-
-% Sources of error
-% ~~~~~~~~~~~~~~~~
-\subsection{Errors, verification, validation}
-
-%! TODO: add ism-io with inputs and outputs
-
-\begin{frame}{Sources of error}
-	\begin{itemize}
-		\item At the mathematical model level
+		\item At the mathematical level
 			\begin{itemize}
-				\item Equations do not model the right processes
-				\item Processes are not modelled at all
-				\item Approximations used become unvalid
-				\item Inputs are poorly constrained (esp. climate)
-				\item Initial conditions are not known
-				\item Parameters are poorly constrained
+				\item Simplist physics (dynamics, mass balance, hydrology)
+				\item Unconstrained parameters
+				\item \alert{Unknown palæo-climate}
 			\end{itemize}
-		\item At the numerical model level
-			\begin{itemize}
-				\item Stability condition is not respected
-				\item Grid size is too rough
-			\end{itemize}
-		\item<2> An ice sheet model can model anything you want!
 	\end{itemize}
 \end{frame}
 
 \againframe{real-to-num}
 
-% Validation agains observations
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Validation against observations}
+% TODO: detail validation and verification
 
-\begin{frame}{Compare model output to surface velocities}
-	\figurebox{bueler-etal-submitted-fig01}{Observed and modelled surface velocities on Greenland (Bueler et al.)}
-\end{frame}
+% -----------------------------------------------
+\section{Application - the Cordilleran ice sheet}
+% -----------------------------------------------
 
-% Validation against geomorphology
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Validation against geomorphology}
+{\usebackgroundtemplate{\includegraphics[resolution=254]{map-cordillera-beamer}}\frame[label=map-cordillera]{
+	\footlineextra{Data: ETOPO1; Natural Earth}
+}}
 
-\begin{frame}{Compare model output to landform record}
+\begin{frame}{Geomorphology}
 	\begin{columns}
-	\column{46.7mm}
-		\figurebox{golledge-etal-2008-fig09-h660}{Golledge et al., 2008}
-	\column{38.4mm}
-		\figurebox{napieralski-etal-2007-fig02}{Napieralski et al., 2007}
+	\column{37mm}
+		\includegraphics[width=\linewidth]{kleman-etal-2010-fig02-h720}
+	\column{53mm}
+		\longcaptionbox{Glacial lineation map}
 	\end{columns}
+	\footlineextra{Source: Kleman et al, 2006}
 \end{frame}
 
-%! TODO: side captions
-
-% Application to geomorphology
-% ----------------------------
-\section{Application to geomorphology}
-
-% Landscape evolution modelling
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Lanscape evolution modelling}
-
-\begin{frame}{Landscape evolution modelling}
-	\figurebox{vanderbeek-2008-tectonique-climat-erosion}{Interactions between climate, tectonics and erosion (Van der Beek)}
+\begin{frame}{Climate}
+	\figurebox{cordillera-narr-10km-artm}{Mean monthly temperature}
 \end{frame}
 
-% Modelling glacial sedimentation
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Modelling glacial sedimentation}
-
-\begin{frame}{A flowline sediment model}
-	\figurebox{pollard-deconto-2007-fig03ab}{Pollard and DeConto, 2007}
+\begin{frame}{Climate}
+	\figurebox{cordillera-narr-10km-precip}{Monthly precipitation}
 \end{frame}
 
-\begin{frame}{A map-plane sediment model}
-	\begin{columns}
-	\column{60mm}
-		\figurebox{kleman-etal-2008-fig07a-w600}{Kleman et al., 2008}
-	\column{60mm}
-		\figurebox{pollard-deconto-2003-fig04-w600}{Pollard and DeConto, 2006}
-	\end{columns}
+% TODO: wet and dry photos
+
+\begin{frame}{Model output}
+	\includegraphics[height=64mm]{pism-cordillera-stepcool+calv+lc+ssa+till-50ka-cool10-0000}\\
+	\captionbox{Movie: simulation of glacial inception in the Cordillera}
 \end{frame}
 
-% Modelling glacial erosion
-% ~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Modelling glacial erosion}
+% TODO: show several frames
 
-\begin{frame}{Erosion of glacial through}
-	\begin{columns}
-	\column{22.4mm}
-		\includegraphics[width=\linewidth]{harbor-1988-fig01-h660}
-	\column{60mm}
-		\captionbox{Harbor, 1988}
-	\end{columns}
+% -------------------
+\section*{Conclusion}
+% -------------------
+
+\begin{frame}{Conclusions}
+	\begin{itemize}
+		\item Glaciers and ice sheets are very dynamic
+		\item Their landform record is sparse in time and space
+		\item Glacier and ice sheet models are uncertain
+		\item But they can be constrained by geomorphology (cf. papers!)
+	\end{itemize}
 \end{frame}
-
-\begin{frame}{Plucking}
-	\begin{columns}
-	\column{60mm}
-		\figurebox{linked-cavities-w600}{Linked cavities}
-	\column{60mm}
-		\figurebox{08-06-14-31-crop600x450}{Plucking steps}
-	\end{columns}
-\end{frame}
-
-
-
-% Conclusions
-% -----------
-%\section*{Conclusions}
 
 \end{document}
 
