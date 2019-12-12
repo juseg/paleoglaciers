@@ -1,0 +1,299 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[frenchb]{babel}
+%\usepackage{natbib}
+\usepackage{rotating}
+\usetheme{Stockholm}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\graphicspath{{../../figures/}}
+\let\Tiny=\tiny
+
+\setbeamercolor{caption}{parent=frametitle}
+
+\newcommand{\longcaptionbox}[1]{%
+	\begin{beamercolorbox}[sep=1ex,center]{caption}%
+		#1%
+	\end{beamercolorbox}}
+
+\newcommand{\captionbox}[1]{%
+	\begin{beamercolorbox}[ht=2.5ex,dp=1ex,center]{caption}%
+		#1%
+	\end{beamercolorbox}}
+
+\newcommand{\figurebox}[2]{%
+	\includegraphics[width=\linewidth]{#1}\\%
+	\captionbox{#2}}
+
+\newcommand{\sidewaysbox}[2]{%
+	\hfill%
+	\begin{sideways}%
+		\begin{minipage}{75mm}%
+			\includegraphics[angle=-90,width=\linewidth]{#1}\newline%
+			\captionbox{#2}%
+		\end{minipage}%
+	\end{sideways}%
+	\hfill}
+
+\title[Numerical glacier modelling]{Numerical glacier (ice sheet) modelling}
+%\subtitle{}
+\author[Julien Seguinot]{Julien Seguinot}
+\institute[INK]{}
+\date{1 Avril 2010}
+
+\titlegraphic{\begin{columns}
+	\column{40mm}
+		\figurebox{10-09-04-07-w400}{A glacier}
+	\column{40mm}
+		\figurebox{code-sediment}{A glacier model}
+	\column{40mm}
+		\figurebox{10-09-21-corentin-05-w400}{A glacier modeller}
+	\end{columns}}
+
+\AtBeginSection[]{\begin{frame}{\insertsection}
+	\tableofcontents[currentsection,hideothersubsections]
+\end{frame}}
+
+% BEGIN DOCUMENT
+% ==============
+\begin{document}
+
+\maketitle
+
+
+
+% Introduction
+% ------------
+\section*{Introduction}
+
+% What is a glacier model?
+% ~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{What is a glacier model?}
+
+\begin{frame}[label=ism-io]{A glacier model from outside}
+	\only<1>{\figurebox{graph-ism-io}{A glacier model is a computer program}}
+	\only<2>{\figurebox{graph-ism-io+out}{A glacier model is a computer program}}
+\end{frame}
+
+\begin{frame}{A glacier model from inside}
+	\begin{columns}
+	\column{60mm}
+		\only<1>{\includegraphics[width=\linewidth]{code-sico-stresses}}
+		\only<2>{\includegraphics[width=\linewidth]{temp-budd-1970-p2-5}}
+	\column{60mm}
+	\begin{itemize}[<+->]
+		\item 10 to 10000s of lines of code
+		\item Pages of equations
+	\end{itemize}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Why model glaciers?}
+\begin{columns}
+	\column{44mm}
+		\figurebox{greve-2000-fig02-h660}{Future predictions}
+	\column{46.7mm}
+		\figurebox{golledge-etal-2008-fig09-h660}{Past reconstructions}
+	\end{columns}
+\end{frame}
+
+%! TODO: side captions, and uncover piecewise
+
+\begin{frame}[label=real-to-num]{How to model glaciers?}
+	\figurebox{graph-real-to-num}{From the real world to the model}
+\end{frame}
+
+%! TODO: change physical world by real world
+
+% The mathematical model
+% ----------------------
+\section{The mathematical model}
+
+% Ice as a continuum
+% ~~~~~~~~~~~~~~~~~~
+\subsection{Ice as a continuum}
+
+%! TODO: add a slide with numbers
+
+% The variables
+% ~~~~~~~~~~~~~
+\subsection{The variables}
+
+%! TODO: add drawing for the stresses
+
+% The model components
+% ~~~~~~~~~~~~~~~~~~~~
+\subsection{The model components}
+
+%! TODO: ism-io with components, inputs
+
+% Approximations for ice flow
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Approximations for ice flow}
+
+%! TODO: add text?
+
+
+
+% The numerical model
+% -------------------
+\section{The numerical model}
+
+% Discretization
+% ~~~~~~~~~~~~~~
+\subsection{Discretization}
+
+\begin{frame}{Putting the equations on a discrete grid}
+	\begin{itemize}
+		\item Real cases can't be solved analytically
+		\item Computers deal with a finite amount of quantities
+		\item Inputs are generally defined on a grid
+		\item Discretization in space
+$$\frac{\partial T}{\partial x}\simeq\frac{T_{i+1}^n-T_{i}^n}{\delta x}$$
+		\item Discretization in time
+$$\frac{\partial T}{\partial t}\simeq\frac{T_i^{n+1}-T_i^n}{\delta t}$$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Numerical instability}
+	\begin{columns}
+	\column{60mm}
+		\figurebox{bueler-2010-stable}{Stable}
+	\column{60mm}
+		\figurebox{bueler-2010-unstable}{Unstable}
+	\end{columns}
+\end{frame}
+
+% Programming
+% ~~~~~~~~~~~
+\subsection{Programming}
+
+\begin{frame}{Programming steps}
+	\begin{itemize}
+		\item Choose a programming environment
+			\begin{itemize}
+				\item High level: Octave, Matlab, Scilab...
+				\item Low level: Fortran, C++...
+			\end{itemize}
+		\item Parse the code into parts (subroutines, classes, ...)
+		\item Find best algorythms
+		\item Debug, debug, debug...
+	\end{itemize}
+\end{frame}
+
+
+
+% Verification and validation
+% ---------------------------
+\section{Verification and validation}
+
+% Sources of error
+% ~~~~~~~~~~~~~~~~
+\subsection{Errors, verification, validation}
+
+%! TODO: add ism-io with inputs and outputs
+
+\begin{frame}{Sources of error}
+	\begin{itemize}
+		\item At the mathematical model level
+			\begin{itemize}
+				\item Equations do not model the right processes
+				\item Processes are not modelled at all
+				\item Approximations used become unvalid
+				\item Inputs are poorly constrained (esp. climate)
+				\item Initial conditions are not known
+				\item Parameters are poorly constrained
+			\end{itemize}
+		\item At the numerical model level
+			\begin{itemize}
+				\item Stability condition is not respected
+				\item Grid size is too rough
+			\end{itemize}
+		\item<2> An ice sheet model can model anything you want!
+	\end{itemize}
+\end{frame}
+
+\againframe{real-to-num}
+
+% Validation agains observations
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Validation against observations}
+
+\begin{frame}{Compare model output to surface velocities}
+	\figurebox{bueler-etal-submitted-fig01}{Observed and modelled surface velocities on Greenland (Bueler et al.)}
+\end{frame}
+
+% Validation against geomorphology
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Validation against geomorphology}
+
+\begin{frame}{Compare model output to landform record}
+	\begin{columns}
+	\column{46.7mm}
+		\figurebox{golledge-etal-2008-fig09-h660}{Golledge et al., 2008}
+	\column{38.4mm}
+		\figurebox{napieralski-etal-2007-fig02}{Napieralski et al., 2007}
+	\end{columns}
+\end{frame}
+
+%! TODO: side captions
+
+% Application to geomorphology
+% ----------------------------
+\section{Application to geomorphology}
+
+% Landscape evolution modelling
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Lanscape evolution modelling}
+
+\begin{frame}{Landscape evolution modelling}
+	\figurebox{vanderbeek-2008-tectonique-climat-erosion}{Interactions between climate, tectonics and erosion (Van der Beek)}
+\end{frame}
+
+% Modelling glacial sedimentation
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Modelling glacial sedimentation}
+
+\begin{frame}{A flowline sediment model}
+	\figurebox{pollard-deconto-2007-fig03ab}{Pollard and DeConto, 2007}
+\end{frame}
+
+\begin{frame}{A map-plane sediment model}
+	\begin{columns}
+	\column{60mm}
+		\figurebox{kleman-etal-2008-fig07a-w600}{Kleman et al., 2008}
+	\column{60mm}
+		\figurebox{pollard-deconto-2003-fig04-w600}{Pollard and DeConto, 2006}
+	\end{columns}
+\end{frame}
+
+% Modelling glacial erosion
+% ~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Modelling glacial erosion}
+
+\begin{frame}{Erosion of glacial through}
+	\begin{columns}
+	\column{22.4mm}
+		\includegraphics[width=\linewidth]{harbor-1988-fig01-h660}
+	\column{60mm}
+		\captionbox{Harbor, 1988}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Plucking}
+	\begin{columns}
+	\column{60mm}
+		\figurebox{linked-cavities-w600}{Linked cavities}
+	\column{60mm}
+		\figurebox{08-06-14-31-crop600x450}{Plucking steps}
+	\end{columns}
+\end{frame}
+
+
+
+% Conclusions
+% -----------
+%\section*{Conclusions}
+
+\end{document}
+
