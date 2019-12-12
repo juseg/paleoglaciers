@@ -1,56 +1,68 @@
-% GLACIER MODELLING
-% =================
+% CORDILLERA
+% ==========
 
 \input{header.tex}
+\title{Palaeoglaciology}
+\author{Julien Seguinot\\\small{(seguinot@vaw.baug.ethz.ch)}}
+\institute{ETH Zürich, Switzerland}
+\date{December 19, 2016}
 
-\title[Glacier modelling]{Glacier modelling}
-\author[seguinot@vaw.baug.ethz.ch]{Julien Seguinot}
-\institute[ETHZ]{ETH Zürich, Switzerland}
-\date{April 7, 2016}
+% paper size and margins
+%\geometry{papersize={192mm,120mm}}
+\setbeamersize{text margin left=4mm}
+\setbeamersize{text margin right=4mm}
+%\setbeamertemplate{footline}{\vspace{2cm}}
+\usepackage{multicol}
+
 
 % ======================================================================
 \begin{document}
 % ======================================================================
 
-    \begin{backgroundframe}{photo_gries_icefall}{0.75}{}
+    \centering  % center all frames
+
+    \begin{backgroundframe}{art_hodel_1927_rigi}{0.75}{}
       \maketitle
+      \footlineextra{Image: Hodel, 1927.}
     \end{backgroundframe}
 
-    \begin{backgroundframe}{photo_gries_icefall}{0.75}{Outline}
-      \tableofcontents[hideallsubsections]
+    \begin{backgroundframe}{art_hodel_1927_rigi}{0.75}{}
+      \includegraphics[width=\linewidth]{art_hodel_1927_w1500}\\
+      \bigskip
+      \emph{Luzern zum Eiszeit}, Hodel, 1927\\(Gletschergarten, Luzern)
+      \footlineextra{Image: Hodel, 1927.}
     \end{backgroundframe}
 
+    \begin{sectionframe}{art_hodel_1927_rigi}{0.75}{Outline}
+      \begin{multicols}{2}
+        \tableofcontents[pausesections]  %[hideallsubsections]
+      \end{multicols}
+      \footlineextra{Image: Hodel, 1927.}
+    \end{sectionframe}
+
 % ----------------------------------------------------------------------
-\section{Introduction}
+\section{History}
 % ----------------------------------------------------------------------
 
-\input{sections/introduction.tex}
+\input{sections/history.tex}
 
 % ----------------------------------------------------------------------
-\section{Glacier monitoring}
+\section{Glacial geomorphology}
 % ----------------------------------------------------------------------
 
-\input{sections/monitoring.tex}
+\input{sections/geomorphology.tex}
 
 % ----------------------------------------------------------------------
 \section{Glacier modelling}
 % ----------------------------------------------------------------------
 
-\input{sections/modelling.tex}
+\input{sections/modelling}
 
 % ----------------------------------------------------------------------
-\section{Examples}
+\section{Example on the Alps}
 % ----------------------------------------------------------------------
 
-\input{sections/geomorphology.tex}
-\input{sections/examples.tex}
-
-    \begin{backgroundframe}{photo_gries_icefall}{0.0}{}
-      \vspace{60mm}\hfill
-      \begin{beamercolorbox}[sep=1em,wd=30mm]{titlelike}
-        Thank you!
-      \end{beamercolorbox}
-    \end{backgroundframe}
+\input{sections/example}
 
 % ======================================================================
 \end{document}

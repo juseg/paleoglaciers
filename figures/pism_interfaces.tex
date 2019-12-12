@@ -54,9 +54,9 @@
 \node (ice) at (4.5, 2.25) {ice sheet};
 \node (ocn) at (1, 1) {ocean};
 \node[bedflux] (bed) at (4.5, 0.5) {bedrock};
-%\node (pism) at (6.5, 1) {PISM};
-%\draw[->] (pism) -- (ice);
-%\draw[->] (pism) -- (bed);
+\node (pism) at (6.5, 1) {PISM};
+\draw[->] (pism) -- (ice);
+\draw[->] (pism) -- (bed);
 
 % fluxes
 \coordinate [name intersections={of=bed and xfl, by=bfl}] ;

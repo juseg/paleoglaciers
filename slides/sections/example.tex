@@ -1,0 +1,166 @@
+% ======================================================================
+% Paleoglacier modelling example on the Alps
+% ======================================================================
+
+    \begin{sectionframe}{art_hodel_1927_rigi}{0.75}{Example}
+      \emph{Modelling paleoglaciers in the Alps.}
+      \footlineextra{Image: Hodel, 1927.}
+    \end{sectionframe}
+
+% ----------------------------------------------------------------------
+\subsection{Context}
+% ----------------------------------------------------------------------
+
+    \begin{sectionframe}{art_hodel_1927_rigi}{0.75}{Context}
+      \emph{The Alps at the Last Glacial Maximum.}
+      \footlineextra{Image: Hodel, 1927.}
+    \end{sectionframe}
+
+    \begin{frame}{Last Glacial Maximum ice extent}
+      \includegraphics[width=\linewidth]{alpcyc_locmap}
+      \footlineextra{Data: SRTM; Natural Earth; Ehlers et al., 2011.}
+    \end{frame}
+
+    \begin{backgroundframe}{photo_mount_logan}{0.0}
+          {Last Glacial Maximum ice thickness}
+      \footlineextra{Photo: Kluane ice cap, Richard Droker.}
+    \end{backgroundframe}
+
+    \begin{sectionframe}{art_hodel_1927_rigi}{0.75}{Problem statement}
+      \begin{itemize}
+        \item Can an ice flow model reproduce geologic reconstructions?
+          \begin{itemize}
+            \item Last Glacial Maximum ice \alert{extent} from moraines
+            \item Last Glacial Maximum ice \alert{thickness} from trimlines
+          \end{itemize}
+      \end{itemize}
+      \bigskip\bigskip\bigskip\pause
+      Tool: Parallel Ice Sheet Model (PISM)\\
+      \bigskip
+      Method: High-resolution simulation of the last glacial cycle (120--0 ka)
+    \end{sectionframe}
+
+
+% ----------------------------------------------------------------------
+\subsection{Climate forcing}
+% ----------------------------------------------------------------------
+
+    \begin{sectionframe}{art_hodel_1927_rigi}{0.75}{Climate forcing}
+      \emph{Sensitivity study}
+      \footlineextra{Image: Hodel, 1927.}
+    \end{sectionframe}
+
+    \begin{frame}{Present-day climate patterns}
+      \includegraphics[width=\linewidth]{alpcyc_inputs}
+      \footlineextra{Data: WorldClim; ERA-Interim; Goutorbe et al., 2011.}
+    \end{frame}
+
+    \begin{frame}{Paleoclimatic evolution}
+      \begin{columns}
+      \column{80mm}
+      \begin{itemize}
+        \item Simple approach
+          \begin{itemize}
+            \item Temperature offset time-series
+            \item Constant precipitation
+          \end{itemize}
+        \bigskip\pause
+        \item Choice criteria
+          \begin{itemize}
+            \item Continuous 120--0\,ka
+            \item High resolution $\approx$1\,ka
+            \item Proxy for temperature
+            \item \sout<3->{Not far from the Alps}
+          \end{itemize}
+        \bigskip\pause
+        \item Time-dependent temperature change from
+          \begin{itemize}
+            \item \textbbf{GRIP} Greenland ice \chem{\delta^{18}O}
+            \item \textrbf{EPICA} Antarctic ice \chem{\delta^{18}O}
+            \item \textgbf{MD01-2444} sediment \chem{U^{K'}_{37}}
+          \end{itemize}
+      \end{itemize}
+      \column{40mm}
+      \includegraphics[height=80mm]{alpcyc_records}
+      \end{columns}
+    \end{frame}
+
+    \begin{frame}{Ice volume evolution}
+      \begin{tikzpicture}
+        \node[inner sep=0] (fig)
+          {\includegraphics[width=\linewidth]{alpcyc_timeseries}};
+        \coverfig<1>{0.53}
+        \coverfig<2>{0.0}
+      \end{tikzpicture}
+      \uncover<2>{Ice volume fluctuations are \alert{rapid},
+                  but smaller with \textrbf{EPICA} forcing.}
+    \end{frame}
+
+    \begin{frame}{Glaciated areas MIS 2 and 4}
+      \begin{tikzpicture}
+        \node[inner sep=0] (fig)
+          {\includegraphics[width=\linewidth]{alpcyc_footprints}};
+        \coverfig<1>{0.48}
+        \coverfig<2>{0.0}
+      \end{tikzpicture}
+      \uncover<2>{Only \textrbf{EPICA} forcing yield
+                  realistic \alert{MIS 4} conditions}
+    \end{frame}
+
+    \begin{frame}{Increasing spatial resolution}
+      \includegraphics<1>[width=\linewidth]{alpcyc_boottopo_5km}
+      \includegraphics<2>[width=\linewidth]{alpcyc_boottopo_1km}
+      \footlineextra{Data: SRTM.}
+    \end{frame}
+
+% ----------------------------------------------------------------------
+\subsection{Results}
+% ----------------------------------------------------------------------
+
+    \begin{sectionframe}{art_hodel_1927_rigi}{0.75}{Results}
+      \emph{Last Glacial Maximum (29--17 ka)}
+      \footlineextra{Image: Hodel, 1927.}
+    \end{sectionframe}
+
+    \begin{frame}{}
+      \centering
+      Alps glacial cycle animation\\
+      \bigskip
+      \url{https://polybox.ethz.ch/index.php/s/XaIAM3NdK9tGNUz}
+    \end{frame}
+
+    \begin{frame}{Last Glacial Maximum snapshot}
+      \includegraphics<1>[width=\linewidth]{alpcyc_lgmvel_26ka}
+      \includegraphics<2>[width=\linewidth]{alpcyc_lgmvel_25ka}
+      \includegraphics<3>[width=\linewidth]{alpcyc_lgmvel_24ka}
+      \includegraphics<4>[width=\linewidth]{alpcyc_lgmvel_21ka}
+      \includegraphics<5>[width=\linewidth]{alpcyc_lgmvel_18ka}
+    \end{frame}
+
+    \begin{frame}{Timing of Last Glacial Maximum}
+      \includegraphics[width=\linewidth]{alpcyc_timing}
+    \end{frame}
+
+    \begin{sectionframe}{art_hodel_1927_rigi}{0.75}{Conclusions}
+      \begin{itemize}
+        \item The modelled \alert{Last Glacial Maximum} is a transient stage.
+          \begin{itemize}
+            \item Glaciers are not in equilibrium with climate.
+            \item Timing potentially varies across the range.
+          \end{itemize}
+        \pause
+        \item Its extent can be modelled using \alert{modern precipitation}.
+          \begin{itemize}
+            \item Model could be right for wrong reasons, or
+            \item Southerly wind regime was short-lived.
+          \end{itemize}
+        \pause
+        \item Its thickness is \alert{much higher} than in reconstructions.
+          \begin{itemize}
+            \item Modelled surface elevation is 800 m above trimlines.
+            \item Rhone valley trimlines match thermal boundary.
+          \end{itemize}
+      \end{itemize}
+      \footlineextra{Image: Hodel, 1927.}
+    \end{sectionframe}
+

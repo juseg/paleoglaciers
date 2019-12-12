@@ -1,7 +1,7 @@
 % Beamer presentation header
 % ======================================================================
 
-\documentclass{beamer}
+\documentclass[aspectratio=43]{beamer}
 
 % ----------------------------------------------------------------------
 % Packages
@@ -31,8 +31,10 @@
 % ----------------------------------------------------------------------
 
 \useinnertheme{rectangles}
-\useoutertheme{infolines}
+\useoutertheme{default}
 \usecolortheme{dove}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
 
 % ----------------------------------------------------------------------
 % Colors
@@ -58,16 +60,18 @@
 \definecolor{myred}      {RGB}{227,  26,  28}  % qual_Paired_12_06
 
 % Beamer colors
-\setbeamercolor{alerted text}{fg=myblue} 
+%\setbeamercolor{alerted text}{fg=myblue} 
 \setbeamercolor{titlelike}{parent=palette primary}
 \setbeamercolor{frametitle}{parent=palette secondary}
 \setbeamercolor{block}{parent=palette secondary}
+\newcommand{\textrbf}[1]{\textcolor{myred}{\textbf{#1}}}
+\newcommand{\textgbf}[1]{\textcolor{mygreen}{\textbf{#1}}}
+\newcommand{\textbbf}[1]{\textcolor{myblue}{\textbf{#1}}}
 
 % Transparent blocks
 \addtobeamertemplate{block begin}{\pgfsetfillopacity{0.75}}{\pgfsetfillopacity{1}}
 \addtobeamertemplate{block alerted begin}{\pgfsetfillopacity{0.75}}{\pgfsetfillopacity{1}}
 \addtobeamertemplate{block example begin}{\pgfsetfillopacity{0.75}}{\pgfsetfillopacity{1}}
-
 
 % ----------------------------------------------------------------------
 % Math shortcuts
@@ -97,14 +101,21 @@
 \newcommand{\sPDD}[0]{\sigma_{\mathrm{PDD}}}
 
 % Common units
+\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+\newcommand{\chem}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\unit}[1]{\ensuremath{\mathsf{#1}}}
 \newcommand{\degree}[0]{\ensuremath{^{\circ}}}
-\newcommand{\degC}[0]{{\degree}C}
+\newcommand{\degC}[0]{\unit{{\degree}C}}
 
 % TikZ block
 \tikzstyle{mathnodestyle}=[anchor=base, inner sep=0pt, myred]
 \newcommand<>{\mathnode}[2]{\alt#3%
     {\tikz[baseline, remember picture]{\node[mathnodestyle](#1){$#2$};}}%
     {#2}}
+
+% strike-out
+\usepackage[normalem]{ulem}
+\renewcommand<>{\sout}[1]{\only#2{\beameroriginal{\sout}}{#1}}
 
 % ----------------------------------------------------------------------
 % Special frames
@@ -132,9 +143,23 @@
    \begin{frame}[#1]{#4}}
   {\end{frame}}
 
+% section frame with custom image
 \newenvironment{sectionframe}[4][]% options, image, alpha, title
   {\begin{backgroundframe}{#2}{#3}{}\centering{\huge #4}\\\bigskip}
   {\end{backgroundframe}}
+
+% coverfig source: http://tex.stackexchange.com/a/101073
+\newcommand<>{\coverfig}[1]{
+  \coordinate (zone) at ($(fig.south)!#1!(fig.north)$);
+  \fill#2[white, opacity=1.0] (fig.south west) rectangle(fig.east|-zone);
+}
+
+%% covergig modified
+%\newcommand<>{\coverfig}[2]{\begin{tikzpicture}
+%  \node[inner sep=0] (fig) {#1};
+%  \coordinate (zone) at ($(fig.south)!#2!(fig.north)$);
+%  \fill<1>[black, opacity=0.75] (fig.south west) rectangle (fig.east|-zone);
+%\end{tikzpicture}}
 
 % ----------------------------------------------------------------------
 % Footline macro
@@ -146,24 +171,28 @@
 
 % add a macro that saves its argument
 \newcommand{\footlineextra}[1]{\gdef\insertfootlineextra{#1}}
-\newbox\footlineextrabox
+%\newbox\footlineextrabox
 
 % add a beamer template that sets the saved argument in a box.
 % The * means that the beamer font and color "footline extra" are automatically added. 
 \defbeamertemplate*{footline extra}{default}{
-    \begin{beamercolorbox}[ht=2.25ex,dp=1ex,leftskip=\Gm@lmargin]{footline extra}
-    \insertfootlineextra
+    %\begin{beamercolorbox}[ht=2.25ex,dp=1ex,leftskip=\Gm@lmargin]{footline extra}
+    \hspace{\Gm@lmargin}\insertfootlineextra
     %\par\vspace{2.5pt}
-    \end{beamercolorbox}
+    %\end{beamercolorbox}
 }
 
 \addtobeamertemplate{footline}{%
     % set the box with the extra footline material but make it add no vertical space
-    \setbox\footlineextrabox=\vbox{\usebeamertemplate*{footline extra}}
-    \vskip -\ht\footlineextrabox
-    \vskip -\dp\footlineextrabox
-    \box\footlineextrabox%
+    %\setbox\footlineextrabox=\vbox{\usebeamertemplate*{footline extra}}
+    %\vskip -\ht\footlineextrabox
+    %\vskip -\dp\footlineextrabox
+    %\box\footlineextrabox%
+    \usebeamertemplate*{footline extra}
 }
+
+% alternatively override the footline template
+%\setbeamertemplate{footline}{\insertfootlineextra\hfill\insertframenumber\,/\,\inserttotalframenumber}}
 
 % patch \begin{frame} to reset the footline extra material
 \let\beamer@original@frame=\frame

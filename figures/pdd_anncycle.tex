@@ -1,0 +1,44 @@
+\alt<3>{\tikzstyle{sd}=[draw, thick, myred]}{\tikzstyle{sd}=[]}
+
+\begin{tikzpicture}[>=latex]
+
+% white background
+\fill[white] (0,0) rectangle +(6,6.5);
+%\draw[help lines, lightgray] (0,0) grid +(8,4);
+
+% melt plot
+\only<1->{
+  \coordinate (o) at (3,4.75);
+  \coordinate (p1) at ($(o)-(2.75,0)$);
+  \coordinate (p2) at ($(o)+(2.75,1.25)$);
+  \draw[->] (p1) -- +(5.5,0) node[above left] {$T$ (\degC)};
+  \draw[->] (o) -- +(0,1.5) node[right] {$M$};
+  \node[below] at (o) {0};
+  \draw (p1) -- (o) -- (p2) ;
+  \path[sd, dashed] (p1)
+    .. controls ($(p1)!0.75!(o)$) and ($(p2)!0.75!(o)$) .. (p2) ;
+}
+
+% seasonal cycle plot
+\only<2->{
+  \coordinate (o) at (0.25,0.75);
+  \coordinate (p1) at ($(o)+(0,1.5)$);
+  \coordinate (p2) at ($(o)+(2.5,3)$);
+  \coordinate (p3) at ($(o)+(5,1.5)$);
+  \draw[->] (o) -- +(5.5,0) node[above left] {$t$ (yr)};
+  \draw[->] (o) -- +(0,3.5) node[right] {$T$};
+  \node [below] at (o) {0};
+  \node [below] at (p3|-o) {1};
+  \draw (p1)  .. controls +(1,0) and +(-1,0) .. (p2)
+              .. controls +(1,0) and +(-1,0) .. (p3) ;
+  \path[sd, dashed] ($(p1)+(0,-1)$)
+              .. controls +(1,0) and +(-1,0) .. ($(p2)+(0,-0.25)$)
+              .. controls +(1,0) and +(-1,0) .. ($(p3)+(0,-1)$) ;
+  \path[sd, dashed] ($(p1)+(0,1)$)
+              .. controls +(1,0) and +(-1,0) .. ($(p2)+(0,0.25)$)
+              .. controls +(1,0) and +(-1,0) .. ($(p3)+(0,1)$) ;
+  \path<3>[<->, sd] (p3) -- ($(p3)+(0,1)$) node [midway, right] {$\sigma$};
+}
+
+\end{tikzpicture}
+

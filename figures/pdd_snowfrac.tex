@@ -1,0 +1,19 @@
+\begin{tikzpicture}[>=latex]
+
+% white background
+\fill[white] (0,0) rectangle +(8,4);
+%\draw[help lines, lightgray] (0,0) grid +(8,4);
+
+\coordinate (o) at (3,1);
+\coordinate (tsnow) at ($(o)+(0,2)$);
+\coordinate (train) at ($(o)+(2,0)$);
+
+\draw[->] (0.25,|-o) -- +(7.0,0) node[above] {$T$ (\degC)};
+\draw[->] (o|-,0.25) -- +(0,3.5) node[right] {snow fraction};
+\draw[myblue, thick] (0.25,|-tsnow) -- (tsnow) -- (train) -- (7,|-train) ;
+
+\node [below left] at (o) {0};
+\node [below left] at (tsnow) {1};
+\node [below] at (train) {2};
+
+\end{tikzpicture}
