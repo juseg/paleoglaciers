@@ -1,7 +1,7 @@
 % Beamer presentation header
 % ======================================================================
 
-\documentclass[aspectratio=43]{beamer}
+\documentclass[aspectratio=1610]{beamer}
 
 % ----------------------------------------------------------------------
 % Packages
@@ -10,6 +10,7 @@
 % encoding
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{fontawesome}
 
 % math
 \usepackage{bm}
@@ -107,15 +108,21 @@
 \newcommand{\degree}[0]{\ensuremath{^{\circ}}}
 \newcommand{\degC}[0]{\unit{{\degree}C}}
 
-% TikZ block
-\tikzstyle{mathnodestyle}=[anchor=base, inner sep=0pt, myred]
-\newcommand<>{\mathnode}[2]{\alt#3%
-    {\tikz[baseline, remember picture]{\node[mathnodestyle](#1){$#2$};}}%
-    {#2}}
+% TikZ invisible math node
+\newcommand<>{\mathnode}[2]{%
+  \alt#3{\tikz[baseline, remember picture]%
+         \node[anchor=base, inner sep=0pt, myred](#1){$#2$};}%
+        {#2}}
+
+% TikZ left-aligned semi-transparent text box
+\newcommand{\alphabox}[1]{%
+  \flushleft\tikz\node[fill=white, fill opacity=0.75, text opacity=1,%
+                       align=left, inner sep=1em] {#1};}
 
 % strike-out
 \usepackage[normalem]{ulem}
 \renewcommand<>{\sout}[1]{\only#2{\beameroriginal{\sout}}{#1}}
+
 
 % ----------------------------------------------------------------------
 % Special frames
@@ -143,10 +150,14 @@
    \begin{frame}[#1]{#4}}
   {\end{frame}}
 
+
 % section frame with custom image
-\newenvironment{sectionframe}[4][]% options, image, alpha, title
-  {\begin{backgroundframe}{#2}{#3}{}\centering{\huge #4}\\\bigskip}
-  {\end{backgroundframe}}
+%\newenvironment{sectionframe}[4][]% options, image, alpha, title
+%  {\begin{backgroundframe}{#2}{#3}{}\centering{\huge #4}\\\bigskip}
+%  {\end{backgroundframe}}
+\newenvironment{sectionframe}[2][]% options, title
+  {\begin{backgroundframe}{art_hodel_1927_rigi}{0.75}{}\centering{\huge #2}\\\bigskip}
+  {\footlineextra{Background: Hodel, 1927.}\end{backgroundframe}}
 
 % coverfig source: http://tex.stackexchange.com/a/101073
 \newcommand<>{\coverfig}[1]{
