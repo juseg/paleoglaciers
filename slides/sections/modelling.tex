@@ -1,0 +1,264 @@
+% ======================================================================
+% Glacier modelling principles
+% ======================================================================
+
+    \begin{sectionframe}{photo_gries_icefall}{0.75}{Glacier modelling}
+      \emph{Using approximated ice flow physics and numerical methods}
+    \end{sectionframe}
+
+% ----------------------------------------------------------------------
+\subsection{Overview}
+% ----------------------------------------------------------------------
+
+    \begin{frame}{}
+      \centering
+      ``The future of glaciers''\\
+      \bigskip
+      \url{https://www.youtube.com/watch?v=eJNIr_0zOyk}
+      \footlineextra{Author: Jouvet et al., 2013.}
+    \end{frame}
+
+    \begin{frame}{From the natural world to the model}
+      \includegraphics{graph_real_to_num}
+    \end{frame}
+
+    \begin{frame}{What is a glacier model?}
+      \begin{tikzpicture}[align=center]
+        \fill[mygreen!75] (-6,-2.5) rectangle (-2.5,2.5);
+        \fill[myblue!75] (-2,-3) rectangle (2,3);
+        \fill[myred!75] (2.5,-2.5) rectangle (6,2.5);
+        \draw[-latex] (-2.5,0) -- (-2,0);
+        \draw[-latex] (2,0) -- (2.5,0);
+        \node at (-4.25,0) {
+          \only<-1>{INPUT}
+          \only<2->{topography\\[1em]
+                    climate\\[1em]
+                    basal heat flux\\[1em]
+                    initial conditions\\[1em]
+                    ...}
+        };
+        \node at (0,0) {
+          \only<-3>{MODEL}
+          \only<4->{thermodynamical core\\[3em]
+                    boundary conditions}
+        };
+        \node at (4.25,0) {
+          \only<-2>{OUTPUT}
+          \only<3->{glacier geometry\\[1em]
+                    velocities\\[1em]
+                    temperature\\[1em]
+                    stresses\\[1em]
+                    ...}
+        };
+      \end{tikzpicture}
+    \end{frame}
+
+% ----------------------------------------------------------------------
+\subsection{Ice thermodynamics}
+% ----------------------------------------------------------------------
+
+\begin{frame}{Field equations}
+  \begin{itemize}[<+->]
+  \item Conservation of volume (incompressibility of flow)
+    \begin{equation*}
+      \div{
+         \mathnode<1>{vv}{\vv}
+        } = 0
+    \end{equation*}
+  \item Balance of stresses (Stokes equation)
+    \begin{equation*}
+      \tdiv{
+         \mathnode<2>{cst}{\CST}
+       } + 
+         \mathnode<2>{rhog}{\rho\,\vect{g}}
+       = \vect{0}
+    \end{equation*}
+  \item Constitutive law for ice (Glen's law)
+    \begin{equation*}
+        \mathnode<3>{srt}{\SRT}
+      = A_0\,e^\frac{-Q}{RT_{pa}}\,\tau_e^{n-1}\,
+        \mathnode<3>{dst}{\DST}
+      \end{equation*}
+  \item Conservation of energy (heat equation)
+    \begin{equation*}
+        \pdv{
+          \mathnode<4>{temp}{T}
+        }{t}+\vect{v}\cdot\grad{}\,T =
+        \mathnode<4>{diff}{\frac{k}{\rho c} \Delta T}
+         +
+        \mathnode<4>{hsrc}{\frac{\tr(\DST\SRT)}{\rho c}}
+    \end{equation*}
+  \end{itemize}
+  \begin{tikzpicture}[>=latex, overlay, remember picture, myred, font=\scriptsize]
+    \path<1> (vv) -- +(3, -0.25) node (vvt) {ice velocity vector};
+    \path<2> (rhog) -- +(3, +0.25) node (cstt) {stress tensor};
+    \path<2> (rhog) -- +(3, -0.25) node (rhogt) {gravitational force};
+    \path<3> (dst) -- +(2, +0.25) node (srtt) {strain-rate tensor};
+    \path<3> (dst) -- +(2, -0.25) node (dstt) {deviatoric stress tensor};
+    \path<4> (temp) -- +(-2, +0.25) node (tempt) {ice temperature};
+    \path<4> (hsrc) -- +(2, +0.25) node (difft) {diffusion term};
+    \path<4> (hsrc) -- +(2, -0.25) node (hsrct) {source term};
+    \path[draw, ->]<1> (vv) .. controls +(0,-0.5) and +(-1,0) .. (vvt.west);
+    \path[draw, ->]<2> (cst) .. controls +(0,+0.5) and +(-1,0.5) .. (cstt.west);
+    \path[draw, ->]<2> (rhog) .. controls +(0,-0.5) and +(-1,-0.5) .. (rhogt.west);
+    \path[draw, ->]<3> (srt) .. controls +(0,+0.5) and +(-1,0.5) .. (srtt.west);
+    \path[draw, ->]<3> (dst) .. controls +(0,-0.5) and +(-0.5,-0.5) .. (dstt.west);
+    \path[draw, ->]<4> (temp) .. controls +(0,0.5) and +(1,0) .. (tempt.east);
+    \path[draw, ->]<4> (diff) .. controls +(0,0.5) and +(-1,1) .. (difft.west);
+    \path[draw, ->]<4> (hsrc) .. controls +(0,-0.5) and +(-1,-1) .. (hsrct.west);
+  \end{tikzpicture}
+  \only<5>{}
+\end{frame}
+
+%    \begin{frame}{Shallow approximations of the stress balance}
+%      $$\vec{\mathrm{div}} \, \bm\sigma + \rho \, \vec{g} = 0
+%        \qquad\Rightarrow\qquad\left\{\begin{array}{l}
+%        \alert<3-4>{\frac{\partial\tau_{xx}}{\partial x}}
+%        \alert<3-4>{+\frac{\partial\tau_{xy}}{\partial y}}
+%        \alert<2-4>{+\frac{\partial\tau_{xz}}{\partial z}}
+%        \alert<2-4>{=\frac{\partial p}{\partial x}}\\
+%        \alert<3-4>{\frac{\partial\tau_{yx}}{\partial x}}
+%        \alert<3-4>{+\frac{\partial\tau_{yy}}{\partial y}}
+%        \alert<2-4>{+\frac{\partial\tau_{yz}}{\partial z}}
+%        \alert<2-4>{=\frac{\partial p}{\partial y}}\\
+%        \alert<4-4>{\frac{\partial\tau_{zx}}{\partial x}}
+%        \alert<4-4>{+\frac{\partial\tau_{zy}}{\partial y}}
+%        \alert<4-4>{+\frac{\partial\tau_{zz}}{\partial z}}
+%        \alert<2-4>{=\frac{\partial p}{\partial z} - \rho g}
+%        \end{array}\right.$$
+%      \begin{itemize}[<+(1)-| alert@+(1)>]
+%        \item Shallow ice approximation
+%        \item Shallow shelf approximation
+%        \item Full stokes
+%        \item<+(1)-> And several others...
+%      \end{itemize}
+%      \pause
+%      Stress balance approximations often define the scope of a glacier model.
+%    \end{frame}
+
+    \begin{frame}{Shallow approximations}
+      \centering
+      \input{../figures/pism_siassa}
+      \footlineextra{After: Winkelmann et al., 2011}
+    \end{frame}
+
+% ----------------------------------------------------------------------
+\subsection{Boundary conditions}
+% ----------------------------------------------------------------------
+
+    \begin{frame}[label=model-interfaces]{Boundary interfaces}
+      \centering
+      \input{../figures/pism_interfaces}\\
+      \bigskip
+      \footlineextra{After: PISM documentation (http://pism-docs.org)}
+    \end{frame}
+
+%    \begin{frame}{Boundary conditions}
+%      \begin{itemize}
+%        \item At the atmosphere interface...
+%          \begin{itemize}
+%            \item mass is gained and lost (surface mass balance)
+%            \item air temperature controls ice temperature
+%          \end{itemize}
+%        \item At the ocean interface...
+%          \begin{itemize}
+%            \item mass is gained and lost (basal mass balance)
+%            \item water temperature controls ice temperature
+%            \item calving of icebergs can occur
+%          \end{itemize}
+%        \item Lithosphere interface...
+%          \begin{itemize}
+%            \item mass is gained and lost (basal mass balance)
+%            \item geothermal heat flux controls ice temperature
+%            \item basal topography controls flow
+%            \item sliding can occur
+%          \end{itemize}
+%      \end{itemize}
+%      \pause
+%      Boundary models are often crude simplifications of complex processes.
+%    \end{frame}
+
+% ----------------------------------------------------------------------
+%\subsection{Numerical implementation}
+% ----------------------------------------------------------------------
+
+%\begin{frame}{\insertsubsection}
+%  \begin{block}{Problem statement}
+%    The equations of the physical model describe \alert{continuous} fields, but computers %can deal with a \alert{finite number of points} in time and space
+%  \end{block}
+%\end{frame}
+
+%\againframe{real-to-num}
+
+%\begin{frame}{Example: the equation of temperature diffusion}
+%  \begin{itemize}[<+->]
+%    \item We use the previous temperature equation...
+%    $$\frac{\partial T}{\partial t}
+%      = \mathbf{v} \cdot \vec{\mathrm{grad}}\,T
+%      + \frac{k}{\rho c} \Delta T
+%      + \frac{4 \mu \dot \epsilon_e^2}{\rho c}$$
+%    \item ... considering only diffusion...
+%    $$\frac{\partial T}{\partial t}
+%      = \frac{k}{\rho c} \Delta T$$
+%    \item ... in the vertical dimension only.
+%    $$\frac{\partial T}{\partial t}
+%      = \kappa\,\frac{\partial^2 T}{\partial z^2}
+%      \qquad \mathrm{with} \qquad
+%      \kappa = \frac{k}{\rho c}$$
+%  \end{itemize}
+%\end{frame}
+
+%\begin{frame}{Discretization}
+%  \begin{itemize}[<+->]
+%    \item In the numerical model, temperature is defined on a grid:
+%    $$T_i^n=T(z_i,t^n)$$
+%    \item Derivatives are approximated (\alert{finite difference method}):
+%    $$\frac{\partial T}{\partial t}\simeq\frac{T_i^{n+1}-T_i^n}{\delta t}
+%      \qquad \mathrm{and} \qquad
+%      \frac{\partial^2 T}{\partial z^2}\simeq\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
+%    \item The temperature equation becomes:
+%    $$\frac{T_i^{n+1}-T_i^n}{\delta t}
+%    =\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
+%    \item This method is said \alert{explicit} as one can write:
+%    $$T_i^{n+1} = f(T_{i+1}^n, T_i^n, T_{i-1}^n)$$
+%  \end{itemize}
+%\end{frame}
+
+%\begin{frame}{Some first-order discretization schemes}
+%  \begin{itemize}[<+->]
+%    \item Explicit scheme
+%    $$\frac{T_i^{n+1}-T_i^n}{\delta t}
+%      =\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
+%    \item Implicit scheme
+%    $$\frac{T_i^{n+1}-T_i^n}{\delta t}
+%      =\kappa\,\frac{T_{i+1}^{n+1}-2T_i^{n+1}+T_{i-1}^{n+1}}{\delta z^2}$$
+%    \item Semi-implicit (time-centered) scheme
+%    $$\frac{T_i^{n+1}-T_i^n}{\delta t}
+%      =\frac{1}{2}\,\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}
+%      +\frac{1}{2}\,\kappa\,\frac{T_{i+1}^{n+1}-2T_i^{n+1}+T_{i-1}^{n+1}}{\delta z^2}$$
+%  \end{itemize}
+%\end{frame}
+
+%\begin{frame}{Numerical instability}
+%  Different schemes have different properties of \alert{convergence} and \alert{stability}.
+%  \begin{columns}
+%  \column{55mm}
+%    \begin{block}{Stable}
+%      \includegraphics[width=\linewidth]{temperature-stable}
+%    \end{block}
+%  \column{55mm}
+%    \begin{block}{Unstable}
+%      \includegraphics[width=\linewidth]{temperature-unstable}
+%    \end{block}
+%  \end{columns}
+%\end{frame}
+
+%\begin{frame}{Other discretization methods}
+%  There exist other methods than the \alert{finite difference} method:
+%  \begin{itemize}[<+->]
+%    \item Finite element method
+%    \item Discrete element method
+%    \item Spectral methods
+%    \item ...
+%  \end{itemize}
+%\end{frame}

@@ -1,377 +1,57 @@
-% PALEOGLACIAL MODELLING
-% ======================
+% GLACIER MODELLING
+% =================
 
-% Packages
-% --------
-\documentclass{beamer}
-\usefonttheme[onlymath]{serif}
-\usepackage[utf8]{inputenc}
-\usepackage{rotating}
-\usepackage{tikz}
-\usepackage{bm}
-\hypersetup{pdfpagemode=FullScreen}
-\DeclareGraphicsExtensions{.pdf,.png,.jpg}
-\graphicspath{{figures/}}
-\usetheme{Stockholm}
+\input{header.tex}
 
-% Footline command
-% ----------------
-% From http://tex.stackexchange.com/questions/5491/how-do-i-insert-text-into-the-footline-of-a-specific-slide-in-beamer
-
-\makeatletter
-
-% add a macro that saves its argument
-\newcommand{\footlineextra}[1]{\gdef\insertfootlineextra{#1}}
-\newbox\footlineextrabox
-
-% add a beamer template that sets the saved argument in a box.
-% The * means that the beamer font and color "footline extra" are automatically added. 
-\defbeamertemplate*{footline extra}{default}{
-    \begin{beamercolorbox}[ht=2.25ex,dp=1ex,leftskip=\Gm@lmargin]{footline extra}
-    \insertfootlineextra
-    %\par\vspace{2.5pt}
-    \end{beamercolorbox}
-}
-
-\addtobeamertemplate{footline}{%
-    % set the box with the extra footline material but make it add no vertical space
-    \setbox\footlineextrabox=\vbox{\usebeamertemplate*{footline extra}}
-    \vskip -\ht\footlineextrabox
-    \vskip -\dp\footlineextrabox
-    \box\footlineextrabox%
-}
-{}
-
-% patch \begin{frame} to reset the footline extra material
-\let\beamer@original@frame=\frame
-\def\frame{\gdef\insertfootlineextra{}\beamer@original@frame}
-\footlineextra{}
-\makeatother
-
-\setbeamercolor{footline extra}{fg=structure.fg}% for instance
-
-% This document
-% -------------
-
-\title[Palæoglacial modelling]{Numerical modelling of past glaciers flow}
-\author[Julien Seguinot]{Julien Seguinot}
-\institute[INK]{}
-\date{6 December 2012}
-
-\AtBeginSubsection[]{\begin{frame}{Outline}
-	\tableofcontents[currentsection,currentsubsection]
-\end{frame}}
+\title[Glacier modelling]{Glacier modelling}
+\author[seguinot@vaw.baug.ethz.ch]{Julien Seguinot}
+\institute[ETHZ]{ETH Zürich, Switzerland}
+\date{April 7, 2016}
 
 % ======================================================================
 \begin{document}
 % ======================================================================
 
-\maketitle
+    \begin{backgroundframe}{photo_gries_icefall}{0.75}{}
+      \maketitle
+    \end{backgroundframe}
 
-\begin{frame}{Outline}
-	\tableofcontents
-\end{frame}
+    \begin{backgroundframe}{photo_gries_icefall}{0.75}{Outline}
+      \tableofcontents[hideallsubsections]
+    \end{backgroundframe}
 
 % ----------------------------------------------------------------------
 \section{Introduction}
 % ----------------------------------------------------------------------
 
-{\usebackgroundtemplate{\includegraphics[resolution=254]{map-northamerica-beamer+is}}\frame{\footlineextra{Data: ETOPO1; Natural Earth}}}
-
-{\usebackgroundtemplate{\includegraphics[resolution=254]{eo-baffinseaice-crop1280x960-barnesicecap}}\begin{frame}{Barnes ice cap (1)}
-	\footlineextra{Source: http://earthobservatory.nasa.gov}
-\end{frame}}
-
-{\usebackgroundtemplate{\includegraphics[resolution=254]{eo-barnesicecap-crop1280x960-northslope}}\begin{frame}{Barnes ice cap (2)}
-	\footlineextra{Source: http://earthobservatory.nasa.gov}
-\end{frame}}
-
-{\usebackgroundtemplate{\includegraphics[resolution=254]{eo-barnesicecap-crop1280x960-geelake}}\begin{frame}{Barnes ice cap (3)}
-	\footlineextra{Source: http://earthobservatory.nasa.gov}
-\end{frame}}
-
-{\usebackgroundtemplate{\includegraphics[resolution=254]{10-07-03-16c-crop1280x960}}\frame{\frametitle{Meltwater channels in British Columbia}}}
-
-{\usebackgroundtemplate{\includegraphics[resolution=254]{eo-usnortheast-crop1280x960-longisland}}\begin{frame}{Long Island and Cape Cod}
-	\begin{block}<2->{Geomorphological evidence...}
-		\begin{itemize}[<+(1)->]
-			\item ... is sparse in space
-			\item ... is sparse in time
-			\item ... requires interpretation
-			\item ... do not include \alert{physical processes}
-		\end{itemize}
-	\end{block}
-	\footlineextra{Source: http://earthobservatory.nasa.gov}
-\end{frame}}
-
-\begin{frame}{Why model past glaciers?}
-	\begin{itemize}[<+->]
-		\item To \alert{complement/interpret} geomorphological evidence
-		\item To \alert{test and constrain} glacier models
-		\item To \alert{spin-up} an ice sheet model for a projection run
-	\end{itemize}
-\end{frame}
+\input{sections/introduction.tex}
 
 % ----------------------------------------------------------------------
-\section{Structure of a numerical glacier model}
+\section{Glacier monitoring}
 % ----------------------------------------------------------------------
 
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-\subsection{Overview}
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-
-\begin{frame}[fragile]{What is a numerical glacier model?}
-	\begin{tikzpicture}[align=center]
-		\fill[olivblad!80] (-6,-2.5) rectangle (-2.5,2.5);
-		\fill[vatten!80] (-2,-3) rectangle (2,3);
-		\fill[eld!80] (2.5,-2.5) rectangle (6,2.5);
-		\draw[-latex] (-2.5,0) -- (-2,0);
-		\draw[-latex] (2,0) -- (2.5,0);
-		\node at (-4.25,0) {
-			\only<-1>{INPUT}
-			\only<2->{
-				topography\\[1em]
-				climate\\[1em]
-				basal heat flux\\[1em]
-				initial conditions\\[1em]
-				...}
-		};
-		\node at (0,0) {
-			\only<-3>{PROGRAM}
-			\only<4->{
-				thermodynamical core\\[3em]
-				boundary conditions}
-		};
-		\node at (4.25,0) {
-			\only<-2>{OUTPUT}
-			\only<3->{
-				glacier geometry\\[1em]
-				velocities\\[1em]
-				temperature\\[1em]
-				stresses\\[1em]
-				...}
-		};
-	\end{tikzpicture}
-\end{frame}
-
-\begin{frame}[label=real-to-num]{How is a numerical glacier model built?}
-	\includegraphics{graph-real-to-num}
-\end{frame}
-
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-\subsection{The thermodynamical core}
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-
-\begin{frame}{\insertsubsection}
-	\begin{itemize}[<+->]
-		\item Balance of stresses (Navier-Stockes equation)
-		$$\vec{\mathrm{div}} \, \bm\sigma + \rho \, \vec{g} = 0 \qquad
-			\nabla \cdot \bm\sigma + \rho \, \bm{g} = 0$$
-		\item Incompressibility of flow (conservation of volume)
-		$$\mathrm{div} \, \vec{v} = 0 \qquad
-			\nabla \cdot \bm{v} = 0$$
-		\item Constitutive law for ice (Glen's law)
-		$$\bm{\dot\epsilon} = A_0 \, e^\frac{-Q}{RT*} \, \bm\tau_e^{n-1} \bm{\tau}$$
-		\item Thermal equation (conservation of energy)
-		$$\frac{\partial T}{\partial t}
-				= \vec{v} \cdot \vec{\mathrm{grad}}\,T
-				+ \frac{k}{\rho c} \Delta T
-				+ \frac{4 \mu \dot \epsilon_e^2}{\rho c} \qquad
-			\frac{\partial T}{\partial t}
-				= \mathbf{v} \cdot \nabla T
-				+ \frac{k}{\rho c} \Delta T
-				+ \frac{4 \mu \dot \epsilon_e^2}{\rho c}$$
-	\end{itemize}
-	\footlineextra{Source: Larour et al. 2012}
-\end{frame}
-
-\begin{frame}{Shallow approximations of the stress balance}
-	$$\vec{\mathrm{div}} \, \bm\sigma + \rho \, \vec{g} = 0
-		\qquad\Rightarrow\qquad\left\{\begin{array}{l}
-		\alert<3-4>{\frac{\partial\tau_{xx}}{\partial x}}
-		\alert<3-4>{+\frac{\partial\tau_{xy}}{\partial y}}
-		\alert<2-4>{+\frac{\partial\tau_{xz}}{\partial z}}
-		\alert<2-4>{=\frac{\partial p}{\partial x}}\\
-		\alert<3-4>{\frac{\partial\tau_{yx}}{\partial x}}
-		\alert<3-4>{+\frac{\partial\tau_{yy}}{\partial y}}
-		\alert<2-4>{+\frac{\partial\tau_{yz}}{\partial z}}
-		\alert<2-4>{=\frac{\partial p}{\partial y}}\\
-		\alert<4-4>{\frac{\partial\tau_{zx}}{\partial x}}
-		\alert<4-4>{+\frac{\partial\tau_{zy}}{\partial y}}
-		\alert<4-4>{+\frac{\partial\tau_{zz}}{\partial z}}
-		\alert<2-4>{=\frac{\partial p}{\partial z} - \rho g}
-		\end{array}\right.$$
-	\begin{itemize}[<+(1)-| alert@+(1)>]
-		\item Shallow ice approximation
-		\item Shallow shelf approximation
-		\item Full stokes
-		\item<+(1)-> And several others...
-	\end{itemize}
-	\pause
-	\begin{block}{Note}
-		Stress balance approximations often define the scope of a glacier model.
-	\end{block}
-\end{frame}
-
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-\subsection{Boundary conditions}
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-
-\begin{frame}{\insertsubsection\ (1)}
-	\includegraphics[width=\linewidth]{pism-climate-cartoon}
-	\footlineextra{Source: PISM documentation (http://pism-docs.org)}
-\end{frame}
-
-\begin{frame}{\insertsubsection\ (2)}
-	\begin{itemize}[<+->]
-		\item At the atmosphere interface...
-			\begin{itemize}
-				\item mass is gained and lost (surface mass balance)
-				\item air temperature controls ice temperature
-			\end{itemize}
-		\item At the ocean interface...
-			\begin{itemize}
-				\item mass is gained and lost (basal mass balance)
-				\item water temperature controls ice temperature
-				\item calving of icebergs can occur
-			\end{itemize}
-		\item Lithosphere interface...
-			\begin{itemize}
-				\item mass is gained and lost (basal mass balance)
-				\item geothermal heat flux controls ice temperature
-				\item basal topography controls flow
-				\item sliding can occur
-			\end{itemize}
-	\end{itemize}
-	\begin{block}<+->{Note}
-		Boundary models are often crude simplifications of complex processes.
-	\end{block}
-\end{frame}
-
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-\subsection{Numerical implementation}
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-
-\begin{frame}{\insertsubsection}
-	\begin{block}{Problem statement}
-		The equations of the physical model describe \alert{continuous} fields, but computers can deal with a \alert{finite number of points} in time and space
-	\end{block}
-\end{frame}
-
-\againframe{real-to-num}
-
-\begin{frame}{Example: the equation of temperature diffusion}
-	\begin{itemize}[<+->]
-		\item We use the previous temperature equation...
-		$$\frac{\partial T}{\partial t}
-			= \mathbf{v} \cdot \vec{\mathrm{grad}}\,T
-			+ \frac{k}{\rho c} \Delta T
-			+ \frac{4 \mu \dot \epsilon_e^2}{\rho c}$$
-		\item ... considering only diffusion...
-		$$\frac{\partial T}{\partial t}
-			= \frac{k}{\rho c} \Delta T$$
-		\item ... in the vertical dimension only.
-		$$\frac{\partial T}{\partial t}
-			= \kappa\,\frac{\partial^2 T}{\partial z^2}
-			\qquad \mathrm{with} \qquad
-			\kappa = \frac{k}{\rho c}$$
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Discretization}
-	\begin{itemize}[<+->]
-		\item In the numerical model, temperature is defined on a grid:
-		$$T_i^n=T(z_i,t^n)$$
-		\item Derivatives are approximated (\alert{finite difference method}):
-		$$\frac{\partial T}{\partial t}\simeq\frac{T_i^{n+1}-T_i^n}{\delta t}
-			\qquad \mathrm{and} \qquad
-			\frac{\partial^2 T}{\partial z^2}\simeq\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
-		\item The temperature equation becomes:
-		$$\frac{T_i^{n+1}-T_i^n}{\delta t}
-		=\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
-		\item This method is said \alert{explicit} as one can write:
-		$$T_i^{n+1} = f(T_{i+1}^n, T_i^n, T_{i-1}^n)$$
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Some first-order discretization schemes}
-	\begin{itemize}[<+->]
-		\item Explicit scheme
-		$$\frac{T_i^{n+1}-T_i^n}{\delta t}
-			=\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
-		\item Implicit scheme
-		$$\frac{T_i^{n+1}-T_i^n}{\delta t}
-			=\kappa\,\frac{T_{i+1}^{n+1}-2T_i^{n+1}+T_{i-1}^{n+1}}{\delta z^2}$$
-		\item Semi-implicit (time-centered) scheme
-		$$\frac{T_i^{n+1}-T_i^n}{\delta t}
-			=\frac{1}{2}\,\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}
-			+\frac{1}{2}\,\kappa\,\frac{T_{i+1}^{n+1}-2T_i^{n+1}+T_{i-1}^{n+1}}{\delta z^2}$$
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Numerical instability}
-	Different schemes have different properties of \alert{convergence} and \alert{stability}.
-	\begin{columns}
-	\column{55mm}
-		\begin{block}{Stable}
-			\includegraphics[width=\linewidth]{temperature-stable}
-		\end{block}
-	\column{55mm}
-		\begin{block}{Unstable}
-			\includegraphics[width=\linewidth]{temperature-unstable}
-		\end{block}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Other discretization methods}
-	There exist other methods than the \alert{finite difference} method:
-	\begin{itemize}[<+->]
-		\item Finite element method
-		\item Discrete element method
-		\item Spectral methods
-		\item ...
-	\end{itemize}
-\end{frame}
+\input{sections/monitoring.tex}
 
 % ----------------------------------------------------------------------
-\section{Issues in palæoglacial modelling}
+\section{Glacier modelling}
 % ----------------------------------------------------------------------
 
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-\subsection{The role of surface mass balance}
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-
-{\usebackgroundtemplate{
-	\includegraphics[resolution=254]{map-northamerica-beamer+is+md}
-}\frame{\footlineextra{Data: ETOPO1; Natural Earth}}}
-
-\begin{frame}{\insertsubsection}
-	\includegraphics<+>[width=\linewidth]{fourclimates-modeloutput}
-	\includegraphics<+>[width=\linewidth]{fourclimates-temperature}
-	\includegraphics<+>[width=\linewidth]{fourclimates-precipitation}
-\end{frame}
-
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-\subsection{The role of resolution}
-% ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-
-\begin{frame}{\insertsubsection}
-	\includegraphics[width=\linewidth]{golledge-etal-2012-fig06}
-	\footlineextra{Source: Golledge et al. 2012}
-\end{frame}
+\input{sections/modelling.tex}
 
 % ----------------------------------------------------------------------
-\section*{Conclusions}
+\section{Examples}
 % ----------------------------------------------------------------------
 
-\begin{frame}{\insertsection}
-	\begin{itemize}
-		\item Numerical glacier (ice sheet) models are great tools to study past glacier dynamics.
-		\item But they should be used with caution and knowledge of their limitations.
-	\end{itemize}
-\end{frame}
+\input{sections/geomorphology.tex}
+\input{sections/examples.tex}
+
+    \begin{backgroundframe}{photo_gries_icefall}{0.0}{}
+      \vspace{60mm}\hfill
+      \begin{beamercolorbox}[sep=1em,wd=30mm]{titlelike}
+        Thank you!
+      \end{beamercolorbox}
+    \end{backgroundframe}
 
 % ======================================================================
 \end{document}
 % ======================================================================
-

@@ -1,0 +1,175 @@
+% Beamer presentation header
+% ======================================================================
+
+\documentclass{beamer}
+
+% ----------------------------------------------------------------------
+% Packages
+% ----------------------------------------------------------------------
+
+% encoding
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% math
+\usepackage{bm}
+\usepackage{physics}
+%\usepackage{amsmath}
+
+% graphics
+\graphicspath{{figures/}}
+
+% tikz
+\usepackage{tikz}
+\usetikzlibrary{intersections}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+%\everymath{\displaystyle}
+
+% ----------------------------------------------------------------------
+% Beamer themes
+% ----------------------------------------------------------------------
+
+\useinnertheme{rectangles}
+\useoutertheme{infolines}
+\usecolortheme{dove}
+
+% ----------------------------------------------------------------------
+% Colors
+% ----------------------------------------------------------------------
+
+% Color brewer paired CMYK
+\definecolor{lightblue}  {rgb}{166, 206, 227}  % qual_Paired_12_01
+\definecolor{darkblue}   {rgb}{ 31, 120, 180}  % qual_Paired_12_02
+\definecolor{lightgreen} {rgb}{178, 223, 138}  % qual_Paired_12_03
+\definecolor{darkgreen}  {rgb}{ 51, 160,  44}  % qual_Paired_12_04
+\definecolor{lightred}   {rgb}{251, 154, 153}  % qual_Paired_12_05
+\definecolor{darkred}    {rgb}{227,  26,  28}  % qual_Paired_12_06
+\definecolor{lightorange}{rgb}{253, 191, 111}  % qual_Paired_12_07
+\definecolor{darkorange} {rgb}{255, 127,   0}  % qual_Paired_12_08
+\definecolor{lightpurple}{rgb}{202, 178, 214}  % qual_Paired_12_09
+\definecolor{darkpurple} {rgb}{106,  61, 154}  % qual_Paired_12_10
+\definecolor{lightbrown} {rgb}{255, 255, 153}  % qual_Paired_12_11
+\definecolor{darkbrown}  {rgb}{177,  89,  40}  % qual_Paired_12_12
+
+% Color shortcuts 
+\definecolor{myblue}     {RGB}{ 31, 120, 180}  % qual_Paired_12_02
+\definecolor{mygreen}    {RGB}{ 51, 160,  44}  % qual_Paired_12_04
+\definecolor{myred}      {RGB}{227,  26,  28}  % qual_Paired_12_06
+
+% Beamer colors
+\setbeamercolor{alerted text}{fg=myblue} 
+\setbeamercolor{titlelike}{parent=palette primary}
+\setbeamercolor{frametitle}{parent=palette secondary}
+\setbeamercolor{block}{parent=palette secondary}
+
+% Transparent blocks
+\addtobeamertemplate{block begin}{\pgfsetfillopacity{0.75}}{\pgfsetfillopacity{1}}
+\addtobeamertemplate{block alerted begin}{\pgfsetfillopacity{0.75}}{\pgfsetfillopacity{1}}
+\addtobeamertemplate{block example begin}{\pgfsetfillopacity{0.75}}{\pgfsetfillopacity{1}}
+
+
+% ----------------------------------------------------------------------
+% Math shortcuts
+% ----------------------------------------------------------------------
+
+% Vectors and tensors
+\newcommand{\vect}[1]{\va*{#1}} % bold arrow vectors
+\newcommand{\tens}[1]{\vb*{#1}} % bold tensors
+
+% Differential operators
+\renewcommand{\div}[1]{\mathrm{div}\,#1}            % divergence
+\renewcommand{\grad}[1]{\vect{\mathrm{grad}}\,#1}   % gradient
+\newcommand{\tdiv}[1]{\vect{\mathrm{div}}\,#1}      % tensor divergence
+\newcommand{\tgrad}[1]{\tens{\mathrm{grad}}\,#1}    % tensor gradient
+\newcommand{\matdv}[1]{\pdv{#1}{t}+\vect{v}\cdot\grad{}\,#1}  % material dv.
+
+% Common notations
+\newcommand{\doteps}[0]{\dot{\epsilon}} % epsilon dot
+\newcommand{\IDT}[0]{\tens{\delta}}     % Identity tensor
+\newcommand{\CST}[0]{\tens{\sigma}}     % Cauchy stress tensor
+\newcommand{\DST}[0]{\tens{\tau}}       % deviatoric stress tensor
+\newcommand{\SRT}[0]{\tens{\doteps}}    % strain-rate tensor
+\newcommand{\vv}[0]{\vect{v}}           % velocity vector
+\newcommand{\vsia}[0]{\vv_{\mathrm{SIA}}}   % SIA velocity
+\newcommand{\vssa}[0]{\vv_{\mathrm{SSA}}}   % SSA velocity
+\newcommand{\PDD}[0]{\mathrm{PDD}}
+\newcommand{\sPDD}[0]{\sigma_{\mathrm{PDD}}}
+
+% Common units
+\newcommand{\degree}[0]{\ensuremath{^{\circ}}}
+\newcommand{\degC}[0]{{\degree}C}
+
+% TikZ block
+\tikzstyle{mathnodestyle}=[anchor=base, inner sep=0pt, myred]
+\newcommand<>{\mathnode}[2]{\alt#3%
+    {\tikz[baseline, remember picture]{\node[mathnodestyle](#1){$#2$};}}%
+    {#2}}
+
+% ----------------------------------------------------------------------
+% Special frames
+% ----------------------------------------------------------------------
+
+\newlength{\imgwidth}
+
+\newenvironment{backgroundframe}[4][c]% options, image, alpha, title
+  {% check width of scale image
+   \settowidth{\imgwidth}{\includegraphics[height=\paperheight]{#2}}%
+   % add image as background canvas
+   \setbeamertemplate{background canvas}{%
+    \tikz[overlay, remember picture]%
+      \node[opacity=1.0] at (current page.center) {%
+        \ifdim\imgwidth<\paperwidth
+          \includegraphics[width=\paperwidth]{#2}
+        \else
+          \includegraphics[height=\paperheight]{#2}
+        \fi
+      };}%
+   % add semi-transparent rectangle overlay
+   \setbeamertemplate{background}{%
+    \tikz\node[fill=white, inner sep=0, opacity=#3,%
+               text width=\paperwidth, text height=\paperheight]{};}%
+   \begin{frame}[#1]{#4}}
+  {\end{frame}}
+
+\newenvironment{sectionframe}[4][]% options, image, alpha, title
+  {\begin{backgroundframe}{#2}{#3}{}\centering{\huge #4}\\\bigskip}
+  {\end{backgroundframe}}
+
+% ----------------------------------------------------------------------
+% Footline macro
+% From http://tex.stackexchange.com/questions/5491/
+%      how-do-i-insert-text-into-the-footline-of-a-specific-slide-in-beamer
+% ----------------------------------------------------------------------
+
+\makeatletter
+
+% add a macro that saves its argument
+\newcommand{\footlineextra}[1]{\gdef\insertfootlineextra{#1}}
+\newbox\footlineextrabox
+
+% add a beamer template that sets the saved argument in a box.
+% The * means that the beamer font and color "footline extra" are automatically added. 
+\defbeamertemplate*{footline extra}{default}{
+    \begin{beamercolorbox}[ht=2.25ex,dp=1ex,leftskip=\Gm@lmargin]{footline extra}
+    \insertfootlineextra
+    %\par\vspace{2.5pt}
+    \end{beamercolorbox}
+}
+
+\addtobeamertemplate{footline}{%
+    % set the box with the extra footline material but make it add no vertical space
+    \setbox\footlineextrabox=\vbox{\usebeamertemplate*{footline extra}}
+    \vskip -\ht\footlineextrabox
+    \vskip -\dp\footlineextrabox
+    \box\footlineextrabox%
+}
+
+% patch \begin{frame} to reset the footline extra material
+\let\beamer@original@frame=\frame
+\def\frame{\gdef\insertfootlineextra{}\beamer@original@frame}
+\footlineextra{}
+\makeatother
+
+\setbeamercolor{footline extra}{fg=structure.fg}% for instance
+
