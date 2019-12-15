@@ -2,24 +2,17 @@
 # Creative Commons Attribution-ShareAlike 4.0 International License
 # (CC BY-SA 4.0, http://creativecommons.org/licenses/by-sa/4.0/)
 
-# Figures Makefile
-# ================
-
-# Variables
-# ---------
+# Plotting Makefile
+# =================
 
 # figures
 FIGS = $(addsuffix .png, $(addprefix isotopes-, 01 02 03) \
 			 $(addprefix worldmap-, 01 02))
 
-
-# Rules
-# -----
-
 # default rule
 all: $(FIGS)
 
-# rules for python figures
+# pattened rule for overlays
 %-01.png %-02.png %-03.png : %.py
 	python $<
 
