@@ -1,5 +1,7 @@
-#!/usr/bin/env python2
-# coding: utf-8
+#!/usr/bin/env python
+# Copyright (c) 2015--2019, Julien Seguinot <seguinot@vaw.baug.ethz.ch>
+# Creative Commons Attribution-ShareAlike 4.0 International License
+# (CC BY-SA 4.0, http://creativecommons.org/licenses/by-sa/4.0/)
 
 import os
 import urllib
@@ -8,37 +10,21 @@ import matplotlib.pyplot as plt
 
 colors = ('#e31a1c', '#1f78b4')  # dark blue, dark red
 
-# data sources
-urlbase = 'ftp://ftp.ncdc.noaa.gov/pub/data/paleo/'
-urldict = {
-    'epica': urlbase + 'icecore/antarctica/epica_domec/edc3deuttemp2007.txt',
-    'lr04':  urlbase + 'contributions_by_author/lisiecki2005/lisiecki2005.txt'}
-
-# additional sea-level data sources
-# 'contributions_by_author/lea2002/lea2002.txt'
-# 'contributions_by_author/siddall2003/siddall2003.txt'
-
-# fetch data
-for rec, url in urldict.iteritems():
-    filename = '../data/%s.txt' % rec
-    print filename
-    if not os.path.isfile(filename):
-        urllib.urlretrieve(url, filename)
-
-
 # Initialize figure
 figw, figh = 150.0, 75.0
 fig, grid = plt.subplots(figsize=(figw/25.4, figh/25.4),
-                         nrows=2, ncols=2, sharex=True)
-fig.subplots_adjust(left=70.0/figw, right=1-2.5/figw,
+                         nrows=2, ncols=2, sharex=True, gridspec_kw=dict(
+                    left=70.0/figw, right=1-2.5/figw,
                     bottom=10.0/figh, top=1-2.5/figh,
                     hspace=2.5/30.0,
-                    width_ratios=(1, 3))
+                    width_ratios=(1, 3)))
 
 # plot LR04 data (pick only the last 800 ka)
 ax = grid[0, 1]
 c = colors[0]
-age, d18o = np.genfromtxt('../data/lr04.txt', skip_header=89, skip_footer=7973, #9387,
+age, d18o = np.genfromtxt('../../data/external/lisiecki2005.txt',
+                          encoding='latin-1',
+                          skip_header=89, skip_footer=7973, #9387,
                           unpack=True, usecols=(0, 1))
 ax.plot(age, d18o, c)  # alt. wiki color #0978ab
 
@@ -58,7 +44,8 @@ fig.savefig('plot_timeseries_02')
 # plot EPICA data
 ax = grid[1, 1]
 c = colors[1]
-age, temp = np.genfromtxt('../data/epica.txt', delimiter=(4, 13, 17, 13, 13),
+age, temp = np.genfromtxt('../../data/external/edc3deuttemp2007.txt',
+                          delimiter=(4, 13, 17, 13, 13), encoding='latin-1',
                           skip_header=104, skip_footer=1,
                           unpack=True, usecols=(2, 4))
 ax.plot(age/1000.0, temp, c)  # alt. wiki color #e0584e
