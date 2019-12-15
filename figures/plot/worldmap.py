@@ -1,4 +1,7 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
+# Copyright (c) 2015--2019, Julien Seguinot <seguinot@vaw.baug.ethz.ch>
+# Creative Commons Attribution-ShareAlike 4.0 International License
+# (CC BY-SA 4.0, http://creativecommons.org/licenses/by-sa/4.0/)
 
 from matplotlib import pyplot as plt
 import cartopy.crs as ccrs
@@ -28,18 +31,18 @@ def draw_lgm(ax):
     """Add Ehlers & Gibbard 2003 LGM outline.
     Try to identify duplicates using centroids."""
     centroids = []
-    shp = shpreader.Reader('data/lgm_simple.shp')
+    shp = shpreader.Reader('../../data/external/lgm_simple.shp')
     for i, geom in enumerate(shp.geometries()):
         x, y = geom.centroid.xy
         x, y = x[0], y[0]
         if y < 0:
-            print 'record %i in southern hemisphere' % i
+            print('record %i in southern hemisphere' % i)
             continue
         if (x, y) in centroids:
-            print 'record %i is a duplicate' % i
+            print('record %i is a duplicate' % i)
             continue
         else:
-            print 'adding record %i with area %f ...' % (i, geom.area)
+            print('adding record %i with area %f ...' % (i, geom.area))
             centroids.append((x, y))
             ax.add_geometries(geom, ccrs.PlateCarree(), alpha=1.0,
                               edgecolor='none', facecolor='#a6cee3')
@@ -105,4 +108,4 @@ if __name__ == '__main__':
     make_legend(ax)
 
     # save
-    fig.savefig('plot_worldmap.pdf')
+    fig.savefig('worldmap')
