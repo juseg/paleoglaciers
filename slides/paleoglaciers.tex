@@ -147,7 +147,6 @@
              {University of Michigan}.}
     \end{frame}
 
-    % LATER embed photos in the plot
     \begin{frame}[t]{The evolution of total ice volume on land}
       \begin{columns}
         \column{30mm}
@@ -157,8 +156,9 @@
           \uncover<2->{\includegraphics[width=30mm]{photo-csiro-bubbles-720p}}%
           \vspace{10.0mm}
         \column{90mm}
-          \includegraphics<1>[width=\linewidth]{plot_timeseries-02}%
-          \includegraphics<2>[width=\linewidth]{plot_timeseries-03}%
+          \includegraphics<1>[width=\linewidth]{plot/isotopes-01}%
+          \includegraphics<2>[width=\linewidth]{plot/isotopes-02}%
+          \includegraphics<3>[width=\linewidth]{plot/isotopes-03}%
       \end{columns}
       \footlineextra{Photo: Brosse, 2015;
         Data: Lisiecki and Raymo, 2005; Jouzel et al., 2007}  % FIXME url
@@ -357,7 +357,7 @@
 %    \end{frame}
 
     \begin{frame}{Shallow approximations}
-      \input{../figures/pism_siassa}
+      \input{../figures/tex/pism-approximations}
       \footlineextra{After: Winkelmann et al., 2011.}  % FIXME url
     \end{frame}
 
@@ -369,7 +369,7 @@
 
     % FIXME maybe improve the text
     \begin{frame}[label=model-interfaces]{Parallel ice sheet model}
-      \input{../figures/pism_interfaces}\\
+      \input{../figures/tex/pism-interfaces}\\
       \bigskip
          \begin{itemize}
            \only<1>{
@@ -386,7 +386,7 @@
     \end{frame}
 
 %    \begin{frame}{Surface accumulation (snowfall)}
-%      \input{../figures/pdd_snowfrac}\\
+%      \input{../figures/tex/pdd-snowfraction}\\
 %      \begin{itemize}
 %        \item equal to precipitation when temperature is below 0\degC
 %        \item decreases to zero linearly with temperature between 0 and 2\degC
@@ -404,7 +404,7 @@
 %                         \, e^{-\frac{(T-T_{ac})^2}{2\sigma^2}} \dd{T} $$
 %          \end{itemize}
 %        \column{60mm}
-%          \only<1-3>{\input{../figures/pdd_anncycle}}
+%          \only<1-3>{\input{../figures/tex/pdd-annualcycle}}
 %      \end{columns}
 %    \end{frame}
 
