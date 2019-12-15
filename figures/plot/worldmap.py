@@ -8,7 +8,7 @@
 from matplotlib import pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.io.shapereader as cshp
-import cartopy.feature as cfeature
+import cartowik.naturalearth as cne
 
 # geographic projections
 ll = ccrs.PlateCarree()
@@ -18,13 +18,6 @@ nps = ccrs.NorthPolarStereo(central_longitude=-45.0)
 ssaea = ccrs.AlbersEqualArea(
     central_longitude=100.0, central_latitude=30.2,
     standard_parallels=(28.75, 31.65))
-
-
-def draw_glaciers(ax):
-    """Add present glaciers."""
-    ax.add_feature(cfeature.NaturalEarthFeature(
-        category='physical', name='glaciated_areas', scale='50m',
-        edgecolor='none', facecolor='#1f78b4', alpha=1.0))
 
 
 def draw_shapefile_nodups(filename, ax=None, crs=None, **kwargs):
@@ -70,15 +63,21 @@ def main():
     grid = [fig.add_axes([0.0, 0.0, 0.5, 1.0], projection=spo),
             fig.add_axes([0.5, 0.0, 0.5, 1.0], projection=npo)]
 
-    # draw common parts
+    # for each hemisphere
     for ax in grid:
+
+        # add physical elements
+        cne.add_rivers(ax=ax, edgecolor='0.25', scale='110m')
+        cne.add_lakes(ax=ax, edgecolor='0.25', facecolor='0.75', scale='110m')
+        cne.add_coastline(ax=ax, edgecolor='0.25', scale='110m')
         draw_shapefile_nodups('../../data/external/lgm_simple.shp',
                               ax=ax, alpha=0.5, facecolor='C0')
-        draw_glaciers(ax)
+        cne.add_glaciers(ax=ax, edgecolor='none', facecolor='C0', scale='110m')
+        cne.add_graticules(ax=ax, interval=15, scale='110m', zorder=2)
+
+        # ax.set_extent does not work well with ortho proj
         ax.set_xlim((-6.5e6, 6.5e6))
         ax.set_ylim((-6.5e6, 6.5e6))
-        ax.coastlines(edgecolor='k', lw=0.25)
-        ax.gridlines(color='0.5', linestyle='-', linewidth=0.1)
 
     # add legend
     make_legend(ax)
