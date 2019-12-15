@@ -10,21 +10,34 @@ A lecture on paleoglaciers I have developed over the years as a doctoral
 student of Stockholm University (SU_) and voluntary teacher for ETH Zurich
 (ETHZ_).
 
-Upcoming lecture
 
-* 2019.12.16, ETHZ_ `Physics of glaciers`_ M.Sc. course.
+Repository contents
+-------------------
+
+* `<data>`_: assemble the data needed by some figures (Bash_).
+* `<figures>`_: prepare figures used in the presentation (Bash_, Python_).
+* `<slides>`_: compile the lecture slides (LaTeX_ Beamer_).
+
 
 Previous lectures
+-----------------
 
-* 2019.08.26, `Hokkaido University`_ `Swiss glaciers field course`_
-* 2018.12.17, ETHZ_ `Physics of glaciers`_ M.Sc. course
-* 2017.12.18, ETHZ_ `Physics of glaciers`_ M.Sc. course
-* 2016.12.19, ETHZ_ `Physics of glaciers`_ M.Sc. course
-* 2016.04.07, `University of Nottingham Ningbo China`_
-* 2015.11.30, ETHZ_, `Physics of glaciers`_
-* 2012.12.06, SU_ Paleoglaciology M.Sc. course
-* 2011.12.12, SU_ Paleoglaciology M.Sc. course
-* 2011.04.01, SU_ Physical Geography B.Sc. course
+* 2019.12.16, ETHZ_ `Physics of glaciers`_ M.Sc. course.
+* 2019.08.26, `Hokkaido University`_ `Swiss glaciers field course`_.
+* 2018.12.17, ETHZ_ `Physics of glaciers`_ M.Sc. course.
+* 2017.12.18, ETHZ_ `Physics of glaciers`_ M.Sc. course.
+* 2016.12.19, ETHZ_ `Physics of glaciers`_ M.Sc. course.
+* 2016.04.07, `University of Nottingham Ningbo China`_.
+* 2015.11.30, ETHZ_, `Physics of glaciers`_.
+* 2012.12.06, SU_ Paleoglaciology M.Sc. course.
+* 2011.12.12, SU_ Paleoglaciology M.Sc. course.
+* 2011.04.01, SU_ Physical Geography B.Sc. course.
+
+
+.. _Bash: https://www.gnu.org/software/bash/
+.. _Beamer: https://ctan.org/pkg/beamer/
+.. _LaTeX: http://latex-project.org
+.. _Python: https://www.python.org
 
 .. _ETHZ: https://ethz.ch
 .. _Hokkaido University: https://www.hokudai.ac.jp
