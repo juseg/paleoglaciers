@@ -12,30 +12,24 @@ import matplotlib.pyplot as plt
 def main():
     """Main program called during execution."""
 
-    colors = ('#e31a1c', '#1f78b4')  # dark blue, dark red
-
     # Initialize figure
-    figw, figh = 150.0, 75.0
-    fig, grid = plt.subplots(figsize=(figw/25.4, figh/25.4),
-                             nrows=2, ncols=2, sharex=True, gridspec_kw=dict(
-                                 left=70.0/figw, right=1-2.5/figw,
-                                 bottom=10.0/figh, top=1-2.5/figh,
-                                 hspace=2.5/30.0, width_ratios=(1, 3)))
+    fig, grid = plt.subplots(
+        figsize=(9, 6), nrows=2, sharex=True, gridspec_kw=dict(
+            left=0.6/9, right=1-0.2/9, bottom=0.6/6, top=1-0.2/6, hspace=0.08))
 
     # plot LR04 data (pick only the last 800 ka)
-    ax = grid[0, 1]
-    color = colors[0]
+    ax = grid[0]
     age, d18o = np.genfromtxt(
         '../../data/external/lisiecki2005.txt', encoding='latin-1',
         skip_header=89, skip_footer=7973, unpack=True, usecols=(0, 1))
-    ax.plot(age, d18o, color)  # alt. wiki color #0978ab
+    ax.plot(age, d18o, color='C0')
 
     # set LR04 axes properties
-    ax.set_ylabel(r'$\delta^{18}O$ (\u2030)')
+    ax.set_ylabel(r'$\delta^{18}O$ (‰)')
     ax.set_yticks([3, 4, 5])
     ax.set_ylim(5.5, 2.5)
     ax.text(0.04, 0.10, 'LR04 benthic stack',
-            color=color, fontweight='bold', transform=ax.transAxes)
+            color='C0', fontweight='bold', transform=ax.transAxes)
 
     # save
     ax.set_xlim(5.0e3, 0.0)
@@ -44,13 +38,12 @@ def main():
     fig.savefig('plot_timeseries_02')
 
     # plot EPICA data
-    ax = grid[1, 1]
-    color = colors[1]
+    ax = grid[1]
     age, temp = np.genfromtxt(
         '../../data/external/edc3deuttemp2007.txt',
         delimiter=(4, 13, 17, 13, 13), encoding='latin-1',
         skip_header=104, skip_footer=1, unpack=True, usecols=(2, 4))
-    ax.plot(age/1000.0, temp, color)  # alt. wiki color #e0584e
+    ax.plot(age/1000.0, temp, color='C3')
 
     # set EPICA axes properties
     ax.set_xlabel('age (ka)')
@@ -58,7 +51,7 @@ def main():
     ax.set_yticks(range(-12, 6, 4))
     ax.set_ylim(-12, 6)
     ax.text(0.04, 0.85, 'EPICA ice core',
-            color=color, fontweight='bold', transform=ax.transAxes)
+            color='C3', fontweight='bold', transform=ax.transAxes)
 
     # save
     ax.set_xlim(2.0e3, 0.0)
