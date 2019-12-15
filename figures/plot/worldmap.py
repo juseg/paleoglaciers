@@ -11,6 +11,8 @@ import cartopy.crs as ccrs
 import cartopy.io.shapereader as cshp
 import cartowik.naturalearth as cne
 
+plt.rc('mathtext', default='regular')
+
 
 def draw_shapefile_nodups(filename, ax=None, crs=None, **kwargs):
     # FIXME add this to cartowik?
