@@ -23,3 +23,8 @@ then
     ogr2ogr -where "OGR_GEOM_AREA > 1e-3" -simplify 0.01 \
             -append lgm_simple.shp lgm_alpen.shp
 fi
+
+# EPICA and LR04 time series
+wdir="ftp://ftp.ncdc.noaa.gov/pub/data/paleo/"
+wget -nc $wdir/icecore/antarctica/epica_domec/edc3deuttemp2007.txt
+wget -nc $wdir/contributions_by_author/lisiecki2005/lisiecki2005.txt
