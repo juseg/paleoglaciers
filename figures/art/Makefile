@@ -5,9 +5,9 @@
 # Artworks Makefile
 # =================
 
-COMM = "https://upload.wikimedia.org/wikipedia/commons/"
+COMMONS = "https://upload.wikimedia.org/wikipedia/commons/"
 FIGS = $(addsuffix .jpg, cole-1829 heer-1865 hodel-1927 hogard-1848 \
-                         fearnley-1838 triner-1865)
+                         fearnley-1838 nansen-1888 triner-1865)
 
 # default rule
 all: $(FIGS)
@@ -28,6 +28,9 @@ hogard-1848.jpg:
 
 fearnley-1838.jpg:
 	wget -nc $(COMMONS)/0/04/Thomas_Fearnley_-_Grindelwaldgletscher_-_Google_Art_Project.jpg -O $@
+
+nansen-1888.jpg:
+	wget -nc $(COMMONS)/f/f0/Nansen%27s_Greenland_expedition_crossing.jpg -O $@
 
 triner-1865.jpg:
 	wget -nc 'https://www.ag.ch/staatsarchiv/suche/getimage.aspx?VEID=84843&DEID=10&SQNZNR=0&SIZE=100' -O $@

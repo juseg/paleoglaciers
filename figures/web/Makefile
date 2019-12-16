@@ -5,7 +5,9 @@
 # Web images Makefile
 # ===================
 
-FIGS = $(addsuffix .jpg, chamberlin-1882 coutterand-2015 decharpentier-1841 \
+COMMONS = 'https://upload.wikimedia.org/wikipedia/commons/'
+FIGS = $(addsuffix .jpg, chamberlin-1882 coutterand-2015 csiro-2000-bubbles \
+			 decharpentier-1841 \
 			 jaggin-2008-01 jaggin-2008-05 penck-bruckner-1909)
 
 # default rule
@@ -21,6 +23,11 @@ chamberlin-1882.jpg:
 coutterand-2015.jpg:
 	wget -nc https://www.glaciers-climat.com/wp-content/uploads/LGM-Alpes-Glaciers-Web.jpeg -O $@
 
+# CSIRO science image (2000) air bubbles
+# FIXME crop to a square maybe
+csiro-2000-bubbles.jpg:
+	wget -nc $(COMMONS)/d/d0/CSIRO_ScienceImage_521_Bubbles_in_Ice.jpg -O $@
+
 # De Charpentier (1841) Rhone Glacier erratic terrain map
 # FIXME hig-res in https://antiqueprintmaproom.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/_/m/_mg_3118_copy_1.jpg
 decharpentier-1841.jpg:
@@ -35,6 +42,7 @@ jaggin-2008-05.jpg:
 # Penck and Brückner (1909) Alps glaciations map
 penck-bruckner-1909.jpg:
 	wget -nc https://www.glaciers-climat.com/wp-content/uploads/6-Carte-Penck-et-Bruckner-1909.jpg -O $@
+
 
 # FIXME missing univ Michigan dO18 cartoon
 
