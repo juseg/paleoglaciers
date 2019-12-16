@@ -68,7 +68,14 @@
 % -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 
     \begin{sectionframe}{art/hodel-1927}{0.75}{Outline}
-      \tableofcontents
+      \begin{columns}[t]
+        \begin{column}{.5\textwidth}
+          \tableofcontents[sections={-2}]
+        \end{column}
+        \begin{column}{.5\textwidth}
+          \tableofcontents[sections={3-}]
+        \end{column}
+      \end{columns}
       \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
     \end{sectionframe}
 
@@ -445,11 +452,87 @@
 %      \end{columns}
 %    \end{frame}
 
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+\subsection{Numerical implementation}
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 
-% ----------------------------------------------------------------------
+%    \begin{sectionframe}{Numerical implementation}
+%      \emph{The equations of the physical model describe \alert{continuous}
+%        fields, \\ but computers only deal with a \alert{finite number of
+%        points} in time and space.}
+%    \end{sectionframe}
+
+    \begin{frame}{Example: the equation of temperature diffusion}
+      \begin{itemize}[<+->]
+        \item We use the previous temperature equation...
+        $$\frac{\partial T}{\partial t}
+          = \mathbf{v} \cdot \vec{\mathrm{grad}}\,T
+          + \frac{k}{\rho c} \Delta T
+          + \frac{4 \mu \dot \epsilon_e^2}{\rho c}$$
+        \item ... considering only diffusion...
+        $$\frac{\partial T}{\partial t}
+         = \frac{k}{\rho c} \Delta T$$
+        \item ... in the vertical dimension only.
+        $$\frac{\partial T}{\partial t}
+          = \kappa\,\frac{\partial^2 T}{\partial z^2}
+          \qquad \mathrm{with} \qquad
+          \kappa = \frac{k}{\rho c}$$
+      \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Discretization using finite differences}
+      \begin{itemize}[<+->]
+        \item In the numerical model, temperature is defined on a grid:
+        $$T_i^n=T(z_i,t^n)$$
+        \item Derivatives are approximated (\alert{finite difference method}):
+        $$\frac{\partial T}{\partial t}\simeq\frac{T_i^{n+1}-T_i^n}{\delta t}
+          \qquad \mathrm{and} \qquad
+          \frac{\partial^2 T}{\partial z^2}\simeq
+            \frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
+        \item The temperature equation becomes:
+        $$\frac{T_i^{n+1}-T_i^n}{\delta t}
+        =\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
+        \item This method is said \alert{explicit} as one can write:
+        $$T_i^{n+1} = f(T_{i+1}^n, T_i^n, T_{i-1}^n)$$
+      \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Alternative finite difference schemes}
+      \begin{itemize}[<+->]
+        \item Explicit scheme
+        $$\frac{T_i^{n+1}-T_i^n}{\delta t}
+         =\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}$$
+        \item Implicit scheme
+        $$\frac{T_i^{n+1}-T_i^n}{\delta t}
+          =\kappa\,\frac{T_{i+1}^{n+1}-2T_i^{n+1}+T_{i-1}^{n+1}}{\delta z^2}$$
+        \item Semi-implicit (time-centered) scheme
+        $$\frac{T_i^{n+1}-T_i^n}{\delta t}
+          =\frac{1}{2}\,\kappa\,\frac{T_{i+1}^n-2T_i^n+T_{i-1}^n}{\delta z^2}
+          +\frac{1}{2}\,\kappa\,\frac{T_{i+1}^{n+1}-2T_i^{n+1}+T_{i-1}^{n+1}}{\delta z^2}$$
+      \end{itemize}
+    \end{frame}
+
+%    \begin{frame}{Numerical instability}
+%      Different schemes have different properties of
+%      \alert{convergence} and \alert{stability}.
+%      \begin{columns}
+%      \column{60mm}
+%        \begin{block}{Stable}
+%          \includegraphics[width=\linewidth]{seguinot_2009_stable}
+%        \end{block}
+%      \pause
+%      \column{60mm}
+%        \begin{block}{Unstable}
+%          \includegraphics[width=\linewidth]{seguinot_2009_unstable}
+%        \end{block}
+%      \end{columns}
+%    \end{frame}
+
+
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 \subsection{Example application}
 % Modelling the Alpine paleo-glaciers.
-% ----------------------------------------------------------------------
+% -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 
 %    \begin{sectionframe}{art/hodel-1927}{0.75}{Open questions}
 %      \begin{enumerate}
