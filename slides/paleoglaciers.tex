@@ -36,15 +36,26 @@
       \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
     \end{backgroundframe}
 
-    \begin{backgroundframe}[b]{julien-xt10-170922-184315-184318-dev-5x8}{0.0}{}
-      \flushleft\alphabox{Gorner Glacier, 2017}
-      \footlineextra{Photo: Seguinot, 2017.}
-    \end{backgroundframe}
-
-    \begin{backgroundframe}[b]{julien-xt1-190601-180527-dev}{0.0}{}
-      \flushleft\alphabox{Lauterbrunnen, 2019}
-      \footlineextra{Photo: Seguinot, 2019.}
-    \end{backgroundframe}
+    \begin{frame}{Past and present glaciers on Earth}
+      % FIXME increase font size in plots
+      % FIXME include ice shelves on worldmap
+      \includegraphics<1>[width=\linewidth]{plot/worldmap-01}%
+      \includegraphics<2>[width=\linewidth]{plot/worldmap-02}%
+      \begin{columns}
+        \only<1>{
+          \column{0.5\textwidth}\centering
+            Antarctica: 58.3 m s.l.e.\\ (Fretwell et al., 2013)
+          \column{0.5\textwidth}\centering
+            Greenland: 7.3 m s.l.e.\\ (Bamber et al., 2013)}
+        \only<2>{
+          \column{\textwidth}\centering
+            Additional 120 to 135 m s.l.e. (Clark and Mix, 2002) \\
+            \emph{How to reconstruct paleoglaciers in space and time?}}
+      \end{columns}
+      \footlineextra{Data:
+        \href{http://www.naturalearthdata.com}{Natural Earth},
+        \href{http://booksite.elsevier.com/9780444534477/}{Ehlers et al., 2011}.}
+    \end{frame}
 
 
 % ----------------------------------------------------------------------
@@ -189,6 +200,16 @@
       \emph{The traces left by glacial erosion and sedimentation.}
       \footlineextra{Artwork: \href{http://gletschergarten.ch}{Hodel, 1927}.}
     \end{sectionframe}
+
+    \begin{backgroundframe}[b]{julien-xt10-170922-184315-184318-dev-5x8}{0.0}{}  % TODO
+      \flushleft\alphabox{Gorner Glacier, 2017}
+      \footlineextra{Photo: Seguinot, 2017.}
+    \end{backgroundframe}
+
+    \begin{backgroundframe}[b]{julien-xt1-190601-180527-dev}{0.0}{}  % TODO
+      \flushleft\alphabox{Lauterbrunnen, 2019}
+      \footlineextra{Photo: Seguinot, 2019.}
+    \end{backgroundframe}
 
 
 % -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
