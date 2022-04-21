@@ -11,8 +11,8 @@ student of Stockholm University (SU_) and voluntary teacher for ETH Zurich
 (ETHZ_).
 
 
-Repository contents
--------------------
+Contents
+--------
 
 * `<data>`_: assemble the data needed by some figures (Bash_).
 * `<figures>`_: prepare figures used in the presentation (Bash_, Python_).
@@ -36,7 +36,7 @@ Previous lectures
 
 .. _Bash: https://www.gnu.org/software/bash/
 .. _Beamer: https://ctan.org/pkg/beamer/
-.. _LaTeX: http://latex-project.org
+.. _LaTeX: https://latex-project.org
 .. _Python: https://www.python.org
 
 .. _ETHZ: https://ethz.ch
